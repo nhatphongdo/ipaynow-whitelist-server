@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "settings",
+  "info": {
+    "name": "setting",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "unique": true,
+      "required": true,
+      "type": "string"
+    },
+    "serverOnly": {
+      "required": true,
+      "type": "boolean",
+      "default": true
+    },
+    "value": {
+      "type": "text"
+    }
+  }
+}

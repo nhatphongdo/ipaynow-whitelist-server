@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/exchanges",
+      "handler": "Exchange.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/exchanges/create",
+      "handler": "Exchange.create",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/exchanges/withdraw",
+      "handler": "Exchange.withdraw",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    }
+  ]
+}

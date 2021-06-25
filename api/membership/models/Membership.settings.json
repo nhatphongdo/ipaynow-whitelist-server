@@ -1,0 +1,40 @@
+{
+  "connection": "default",
+  "collectionName": "memberships",
+  "info": {
+    "name": "membership",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "default": {
+      "type": "boolean"
+    },
+    "stores": {
+      "collection": "store",
+      "via": "membership"
+    },
+    "users": {
+      "via": "membership",
+      "plugin": "users-permissions",
+      "collection": "user"
+    },
+    "period": {
+      "type": "biginteger",
+      "default": "0"
+    }
+  }
+}

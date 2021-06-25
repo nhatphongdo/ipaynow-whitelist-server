@@ -1,0 +1,227 @@
+{
+  "connection": "default",
+  "collectionName": "users-permissions_user",
+  "info": {
+    "name": "user",
+    "description": ""
+  },
+  "options": {
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  "attributes": {
+    "username": {
+      "type": "string",
+      "minLength": 3,
+      "unique": true,
+      "configurable": false,
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "minLength": 6,
+      "configurable": false,
+      "required": true
+    },
+    "provider": {
+      "type": "string",
+      "configurable": false
+    },
+    "password": {
+      "type": "password",
+      "minLength": 6,
+      "configurable": false,
+      "private": true
+    },
+    "resetPasswordToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "role": {
+      "model": "role",
+      "via": "users",
+      "plugin": "users-permissions",
+      "configurable": false
+    },
+    "walletAddress": {
+      "unique": true,
+      "required": true,
+      "type": "string"
+    },
+    "accountNumber": {
+      "type": "biginteger",
+      "unique": true,
+      "required": true
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "availability": {
+      "default": "Private",
+      "enum": [
+        "Private",
+        "Shared",
+        "Public"
+      ],
+      "type": "enumeration",
+      "required": true
+    },
+    "isMerchant": {
+      "required": true,
+      "type": "boolean"
+    },
+    "applyMerchantTime": {
+      "type": "datetime"
+    },
+    "vendorName": {
+      "type": "string"
+    },
+    "vendorCountry": {
+      "type": "string"
+    },
+    "vendorAddressLocation": {
+      "type": "string",
+      "maxLength": 1024
+    },
+    "vendorContactNumber": {
+      "type": "string"
+    },
+    "vendorService": {
+      "type": "string"
+    },
+    "vendorAddress": {
+      "type": "text"
+    },
+    "vendorDescription": {
+      "type": "text"
+    },
+    "father": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "grandFather": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "tokens": {
+      "collection": "token",
+      "via": "user"
+    },
+    "membership": {
+      "model": "membership",
+      "via": "users"
+    },
+    "interests": {
+      "collection": "interest",
+      "via": "user"
+    },
+    "locks": {
+      "collection": "lock",
+      "via": "user"
+    },
+    "vendorLogo": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "vendorImages": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "vendorCategory": {
+      "type": "text"
+    },
+    "logs": {
+      "collection": "log",
+      "via": "user"
+    },
+    "merchantReviews": {
+      "collection": "review",
+      "via": "merchant"
+    },
+    "reviews": {
+      "collection": "review",
+      "via": "reviewer"
+    },
+    "gameRecords": {
+      "collection": "gamerecord",
+      "via": "user"
+    },
+    "language": {
+      "type": "string"
+    },
+    "paymentInfo": {
+      "type": "text"
+    },
+    "contactNumber": {
+      "type": "string"
+    },
+    "sendTransactions": {
+      "collection": "transaction",
+      "via": "sender"
+    },
+    "receiveTransactions": {
+      "collection": "transaction",
+      "via": "receiver"
+    },
+    "purchases": {
+      "collection": "purchase",
+      "via": "user"
+    },
+    "exchanges": {
+      "collection": "exchange",
+      "via": "user"
+    },
+    "pushNotificationTokens": {
+      "type": "text"
+    },
+    "buyTrades": {
+      "collection": "trade",
+      "via": "buyer"
+    },
+    "sellTrades": {
+      "collection": "trade",
+      "via": "seller"
+    },
+    "notifications": {
+      "collection": "notification",
+      "via": "user"
+    },
+    "rewards": {
+      "collection": "reward",
+      "via": "user"
+    },
+    "contactBooks": {
+      "collection": "contact-book",
+      "via": "owner"
+    },
+    "membershipExpiredTime": {
+      "type": "datetime"
+    },
+    "storeId": {
+      "type": "text"
+    },
+    "vendorEmail": {
+      "type": "text"
+    },
+    "vendorId": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "connection": "default",
+  "collectionName": "stores",
+  "info": {
+    "name": "store",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "nameEN": {
+      "type": "string"
+    },
+    "nameCN": {
+      "type": "string"
+    },
+    "nameJP": {
+      "type": "string"
+    },
+    "nameKR": {
+      "type": "string"
+    },
+    "nameVN": {
+      "type": "string"
+    },
+    "price": {
+      "type": "float"
+    },
+    "unit": {
+      "default": "Reward",
+      "enum": [
+        "Reward",
+        "HDN"
+      ],
+      "type": "enumeration"
+    },
+    "type": {
+      "default": "Special Format",
+      "enum": [
+        "Special Format",
+        "Membership"
+      ],
+      "type": "enumeration"
+    },
+    "membership": {
+      "via": "stores",
+      "model": "membership"
+    },
+    "specialFormat": {
+      "model": "format",
+      "via": "stores"
+    },
+    "enabled": {
+      "default": true,
+      "type": "boolean"
+    },
+    "purchases": {
+      "collection": "purchase",
+      "via": "store"
+    }
+  }
+}

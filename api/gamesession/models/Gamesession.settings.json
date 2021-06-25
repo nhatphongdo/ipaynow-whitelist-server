@@ -1,0 +1,50 @@
+{
+  "connection": "default",
+  "collectionName": "gamesessions",
+  "info": {
+    "name": "gamesession",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "startTime": {
+      "type": "datetime"
+    },
+    "endTime": {
+      "type": "datetime"
+    },
+    "endJoinTime": {
+      "type": "datetime"
+    },
+    "cost": {
+      "type": "float"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "prize": {
+      "type": "float"
+    },
+    "prizeUnit": {
+      "type": "string"
+    },
+    "gameRecords": {
+      "collection": "gamerecord",
+      "via": "gameSession"
+    },
+    "result": {
+      "type": "json"
+    },
+    "game": {
+      "model": "game",
+      "via": "gameSessions"
+    }
+  }
+}

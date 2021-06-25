@@ -1,0 +1,79 @@
+{
+  "connection": "default",
+  "collectionName": "trades",
+  "info": {
+    "name": "trade",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "postTime": {
+      "type": "datetime"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "Pending",
+        "Sent to Seller",
+        "Wait for Seller approval",
+        "Wait for payment",
+        "Paid and wait for confirmation",
+        "Sending to Buyer",
+        "Completed",
+        "Rejected",
+        "No payment",
+        "No token",
+        "Cancel payment",
+        "Cancelled"
+      ],
+      "type": "enumeration",
+      "default": "Pending"
+    },
+    "sellerApproveTime": {
+      "type": "datetime"
+    },
+    "paidTime": {
+      "type": "datetime"
+    },
+    "confirmedTime": {
+      "type": "datetime"
+    },
+    "completedTime": {
+      "type": "datetime"
+    },
+    "transaction": {
+      "model": "transaction",
+      "via": "trade"
+    },
+    "buyExchange": {
+      "via": "buyTrades",
+      "model": "exchange"
+    },
+    "sellExchange": {
+      "via": "sellTrades",
+      "model": "exchange"
+    },
+    "buyer": {
+      "via": "buyTrades",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "seller": {
+      "via": "sellTrades",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

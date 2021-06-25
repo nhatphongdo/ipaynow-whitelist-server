@@ -1,0 +1,54 @@
+{
+  "connection": "default",
+  "collectionName": "locks",
+  "info": {
+    "name": "lock",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "startedOn": {
+      "required": true,
+      "type": "datetime"
+    },
+    "endedOn": {
+      "required": true,
+      "type": "datetime"
+    },
+    "earn": {
+      "model": "earn",
+      "via": "locks"
+    },
+    "amount": {
+      "type": "float",
+      "required": true
+    },
+    "interestRate": {
+      "type": "float"
+    },
+    "returnAmount": {
+      "type": "float"
+    },
+    "returned": {
+      "type": "boolean"
+    },
+    "finished": {
+      "type": "boolean"
+    },
+    "returnedOn": {
+      "type": "datetime"
+    },
+    "user": {
+      "via": "locks",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

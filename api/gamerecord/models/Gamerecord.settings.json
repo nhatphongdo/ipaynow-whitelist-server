@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "gamerecords",
+  "info": {
+    "name": "gamerecord",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "data": {
+      "type": "json"
+    },
+    "status": {
+      "enum": [
+        "Win",
+        "Lose",
+        "Playing"
+      ],
+      "type": "enumeration",
+      "default": "Playing"
+    },
+    "result": {
+      "type": "json"
+    },
+    "gameSession": {
+      "via": "gameRecords",
+      "model": "gamesession"
+    },
+    "user": {
+      "via": "gameRecords",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

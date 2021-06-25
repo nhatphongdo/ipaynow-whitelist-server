@@ -1,0 +1,68 @@
+{
+  "connection": "default",
+  "collectionName": "purchases",
+  "info": {
+    "name": "purchase",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "amount": {
+      "type": "float"
+    },
+    "purchasedTime": {
+      "type": "datetime"
+    },
+    "status": {
+      "default": "In Cart",
+      "enum": [
+        "In Cart",
+        "Payment Pending",
+        "Completed"
+      ],
+      "type": "enumeration"
+    },
+    "total": {
+      "type": "float"
+    },
+    "unit": {
+      "default": "Reward",
+      "enum": [
+        "Reward",
+        "HDN"
+      ],
+      "type": "enumeration"
+    },
+    "store": {
+      "model": "store",
+      "via": "purchases"
+    },
+    "data": {
+      "type": "json"
+    },
+    "transaction": {
+      "model": "transaction",
+      "via": "purchase"
+    },
+    "enabled": {
+      "default": true,
+      "type": "boolean"
+    },
+    "user": {
+      "via": "purchases",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "reward": {
+      "model": "reward",
+      "via": "purchase"
+    }
+  }
+}

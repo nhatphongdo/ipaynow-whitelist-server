@@ -1,0 +1,2814 @@
+{
+  "paths": {
+    "/users-permissions/search/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "Search for users",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Users-PermissionsUser"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      }
+    },
+    "/connect/*": {
+      "get": {
+        "deprecated": false,
+        "description": "Connect a provider",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": []
+      }
+    },
+    "/auth/local": {
+      "post": {
+        "deprecated": false,
+        "description": "Login a user using the identifiers email and password",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/local/register": {
+      "post": {
+        "deprecated": false,
+        "description": "Register a new user with the default role",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users-PermissionsUser"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUsers-PermissionsUser"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/{provider}/callback": {
+      "get": {
+        "deprecated": false,
+        "description": "Successfull redirection after approving a provider",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": [
+          {
+            "name": "provider",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "deprecated": false,
+        "description": "Send the reset password email link",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "deprecated": false,
+        "description": "Change a user's password",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/email-confirmation": {
+      "get": {
+        "deprecated": false,
+        "description": "Validate a user account",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": []
+      }
+    },
+    "/auth/send-email-confirmation": {
+      "post": {
+        "deprecated": false,
+        "description": "Send a confirmation email to user",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "deprecated": false,
+        "description": "Retrieve all user documents",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Users-PermissionsUser"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      }
+    },
+    "/users/me": {
+      "get": {
+        "deprecated": false,
+        "description": "Retrieve the logged in user information",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users-PermissionsUser"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": []
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "Retrieve a single user depending on his id",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users-PermissionsUser"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update an existing user",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users-PermissionsUser"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUsers-PermissionsUser"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete an existing user",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Users-Permissions - User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Users-PermissionsUser": {
+        "required": [
+          "id",
+          "username",
+          "email",
+          "walletAddress",
+          "accountNumber",
+          "availability",
+          "isMerchant"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string",
+            "minLength": 3
+          },
+          "email": {
+            "type": "string",
+            "minLength": 6
+          },
+          "provider": {
+            "type": "string"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "default": false
+          },
+          "blocked": {
+            "type": "boolean",
+            "default": false
+          },
+          "role": {
+            "required": [
+              "id",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "permissions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "users": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "walletAddress": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "integer"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "availability": {
+            "type": "string",
+            "default": "Private",
+            "enum": [
+              "Private",
+              "Shared",
+              "Public"
+            ]
+          },
+          "isMerchant": {
+            "type": "boolean"
+          },
+          "applyMerchantTime": {
+            "type": "datetime"
+          },
+          "vendorName": {
+            "type": "string"
+          },
+          "vendorCountry": {
+            "type": "string"
+          },
+          "vendorAddressLocation": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "vendorContactNumber": {
+            "type": "string"
+          },
+          "vendorService": {
+            "type": "string"
+          },
+          "vendorAddress": {
+            "type": "string"
+          },
+          "vendorDescription": {
+            "type": "string"
+          },
+          "father": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "walletAddress",
+              "accountNumber",
+              "availability",
+              "isMerchant"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "walletAddress": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "string"
+              },
+              "isMerchant": {
+                "type": "boolean"
+              },
+              "applyMerchantTime": {
+                "type": "datetime"
+              },
+              "vendorName": {
+                "type": "string"
+              },
+              "vendorCountry": {
+                "type": "string"
+              },
+              "vendorAddressLocation": {
+                "type": "string"
+              },
+              "vendorContactNumber": {
+                "type": "string"
+              },
+              "vendorService": {
+                "type": "string"
+              },
+              "vendorAddress": {
+                "type": "string"
+              },
+              "vendorDescription": {
+                "type": "string"
+              },
+              "father": {
+                "type": "string"
+              },
+              "grandFather": {
+                "type": "string"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membership": {
+                "type": "string"
+              },
+              "interests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "locks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorLogo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorImages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorCategory": {
+                "type": "string"
+              },
+              "logs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "merchantReviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "gameRecords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "paymentInfo": {
+                "type": "string"
+              },
+              "contactNumber": {
+                "type": "string"
+              },
+              "sendTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "receiveTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "purchases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "exchanges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pushNotificationTokens": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contactBooks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membershipExpiredTime": {
+                "type": "datetime"
+              },
+              "storeId": {
+                "type": "string"
+              },
+              "vendorEmail": {
+                "type": "string"
+              },
+              "vendorId": {
+                "type": "string"
+              }
+            }
+          },
+          "grandFather": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "walletAddress",
+              "accountNumber",
+              "availability",
+              "isMerchant"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "walletAddress": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "string"
+              },
+              "isMerchant": {
+                "type": "boolean"
+              },
+              "applyMerchantTime": {
+                "type": "datetime"
+              },
+              "vendorName": {
+                "type": "string"
+              },
+              "vendorCountry": {
+                "type": "string"
+              },
+              "vendorAddressLocation": {
+                "type": "string"
+              },
+              "vendorContactNumber": {
+                "type": "string"
+              },
+              "vendorService": {
+                "type": "string"
+              },
+              "vendorAddress": {
+                "type": "string"
+              },
+              "vendorDescription": {
+                "type": "string"
+              },
+              "father": {
+                "type": "string"
+              },
+              "grandFather": {
+                "type": "string"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membership": {
+                "type": "string"
+              },
+              "interests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "locks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorLogo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorImages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorCategory": {
+                "type": "string"
+              },
+              "logs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "merchantReviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "gameRecords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "paymentInfo": {
+                "type": "string"
+              },
+              "contactNumber": {
+                "type": "string"
+              },
+              "sendTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "receiveTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "purchases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "exchanges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pushNotificationTokens": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contactBooks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membershipExpiredTime": {
+                "type": "datetime"
+              },
+              "storeId": {
+                "type": "string"
+              },
+              "vendorEmail": {
+                "type": "string"
+              },
+              "vendorId": {
+                "type": "string"
+              }
+            }
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "clientPublicKey",
+                "serverPrivateKey",
+                "serverPublicKey"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "clientPublicKey": {
+                  "type": "string"
+                },
+                "serverPrivateKey": {
+                  "type": "string"
+                },
+                "serverPublicKey": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "membership": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "default": {
+                "type": "boolean"
+              },
+              "stores": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "users": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "period": {
+                "type": "integer"
+              }
+            }
+          },
+          "interests": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "startedTime": {
+                  "type": "datetime"
+                },
+                "endedTime": {
+                  "type": "datetime"
+                },
+                "processed": {
+                  "type": "boolean"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "transaction": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "locks": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "startedOn",
+                "endedOn",
+                "amount"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "startedOn": {
+                  "type": "datetime"
+                },
+                "endedOn": {
+                  "type": "datetime"
+                },
+                "earn": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "interestRate": {
+                  "type": "number"
+                },
+                "returnAmount": {
+                  "type": "number"
+                },
+                "returned": {
+                  "type": "boolean"
+                },
+                "finished": {
+                  "type": "boolean"
+                },
+                "returnedOn": {
+                  "type": "datetime"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "vendorLogo": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "vendorImages": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "vendorCategory": {
+            "type": "string"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "exception": {
+                  "type": "object"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "merchantReviews": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type": "number"
+                },
+                "approved": {
+                  "type": "boolean"
+                },
+                "merchant": {
+                  "type": "string"
+                },
+                "reviewer": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type": "number"
+                },
+                "approved": {
+                  "type": "boolean"
+                },
+                "merchant": {
+                  "type": "string"
+                },
+                "reviewer": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "gameRecords": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "result": {
+                  "type": "object"
+                },
+                "gameSession": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "language": {
+            "type": "string"
+          },
+          "paymentInfo": {
+            "type": "string"
+          },
+          "contactNumber": {
+            "type": "string"
+          },
+          "sendTransactions": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "fromAddress": {
+                  "type": "string"
+                },
+                "toAddress": {
+                  "type": "string"
+                },
+                "transactionHash": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "blockchainReceipt": {
+                  "type": "object"
+                },
+                "processed": {
+                  "type": "boolean"
+                },
+                "processedOn": {
+                  "type": "datetime"
+                },
+                "processedNote": {
+                  "type": "string"
+                },
+                "purchase": {
+                  "type": "string"
+                },
+                "exchange": {
+                  "type": "string"
+                },
+                "sender": {
+                  "type": "string"
+                },
+                "receiver": {
+                  "type": "string"
+                },
+                "trade": {
+                  "type": "string"
+                },
+                "interest": {
+                  "type": "string"
+                },
+                "rewards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "receiveTransactions": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "fromAddress": {
+                  "type": "string"
+                },
+                "toAddress": {
+                  "type": "string"
+                },
+                "transactionHash": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "blockchainReceipt": {
+                  "type": "object"
+                },
+                "processed": {
+                  "type": "boolean"
+                },
+                "processedOn": {
+                  "type": "datetime"
+                },
+                "processedNote": {
+                  "type": "string"
+                },
+                "purchase": {
+                  "type": "string"
+                },
+                "exchange": {
+                  "type": "string"
+                },
+                "sender": {
+                  "type": "string"
+                },
+                "receiver": {
+                  "type": "string"
+                },
+                "trade": {
+                  "type": "string"
+                },
+                "interest": {
+                  "type": "string"
+                },
+                "rewards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "purchases": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "purchasedTime": {
+                  "type": "datetime"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "total": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "store": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "reward": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "postTime": {
+                  "type": "datetime"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "minAmount": {
+                  "type": "number"
+                },
+                "maxAmount": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "isValid": {
+                  "type": "boolean"
+                },
+                "paymentMethods": {
+                  "type": "string"
+                },
+                "remainAmount": {
+                  "type": "number"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "buyTrades": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "sellTrades": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "pushNotificationTokens": {
+            "type": "string"
+          },
+          "buyTrades": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "postTime": {
+                  "type": "datetime"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "sellerApproveTime": {
+                  "type": "datetime"
+                },
+                "paidTime": {
+                  "type": "datetime"
+                },
+                "confirmedTime": {
+                  "type": "datetime"
+                },
+                "completedTime": {
+                  "type": "datetime"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "buyExchange": {
+                  "type": "string"
+                },
+                "sellExchange": {
+                  "type": "string"
+                },
+                "buyer": {
+                  "type": "string"
+                },
+                "seller": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "sellTrades": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "postTime": {
+                  "type": "datetime"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "sellerApproveTime": {
+                  "type": "datetime"
+                },
+                "paidTime": {
+                  "type": "datetime"
+                },
+                "confirmedTime": {
+                  "type": "datetime"
+                },
+                "completedTime": {
+                  "type": "datetime"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "buyExchange": {
+                  "type": "string"
+                },
+                "sellExchange": {
+                  "type": "string"
+                },
+                "buyer": {
+                  "type": "string"
+                },
+                "seller": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "title",
+                "message"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "retries": {
+                  "type": "integer"
+                },
+                "sent": {
+                  "type": "boolean"
+                },
+                "scheduleTime": {
+                  "type": "datetime"
+                },
+                "sentTime": {
+                  "type": "datetime"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "read": {
+                  "type": "boolean"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "sending": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "amount",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "lock": {
+                  "type": "string"
+                },
+                "gameRecord": {
+                  "type": "string"
+                },
+                "purchase": {
+                  "type": "string"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "contactBooks": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "walletAddress": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "membershipExpiredTime": {
+            "type": "datetime"
+          },
+          "storeId": {
+            "type": "string"
+          },
+          "vendorEmail": {
+            "type": "string"
+          },
+          "vendorId": {
+            "type": "string"
+          }
+        }
+      },
+      "NewUsers-PermissionsUser": {
+        "required": [
+          "username",
+          "email",
+          "walletAddress",
+          "accountNumber",
+          "availability",
+          "isMerchant"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 3
+          },
+          "email": {
+            "type": "string",
+            "minLength": 6
+          },
+          "provider": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6
+          },
+          "resetPasswordToken": {
+            "type": "string"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "default": false
+          },
+          "blocked": {
+            "type": "boolean",
+            "default": false
+          },
+          "role": {
+            "type": "string"
+          },
+          "walletAddress": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "integer"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "availability": {
+            "type": "string",
+            "default": "Private",
+            "enum": [
+              "Private",
+              "Shared",
+              "Public"
+            ]
+          },
+          "isMerchant": {
+            "type": "boolean"
+          },
+          "applyMerchantTime": {
+            "type": "datetime"
+          },
+          "vendorName": {
+            "type": "string"
+          },
+          "vendorCountry": {
+            "type": "string"
+          },
+          "vendorAddressLocation": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "vendorContactNumber": {
+            "type": "string"
+          },
+          "vendorService": {
+            "type": "string"
+          },
+          "vendorAddress": {
+            "type": "string"
+          },
+          "vendorDescription": {
+            "type": "string"
+          },
+          "father": {
+            "type": "string"
+          },
+          "grandFather": {
+            "type": "string"
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "membership": {
+            "type": "string"
+          },
+          "interests": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vendorCategory": {
+            "type": "string"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "merchantReviews": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "gameRecords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "language": {
+            "type": "string"
+          },
+          "paymentInfo": {
+            "type": "string"
+          },
+          "contactNumber": {
+            "type": "string"
+          },
+          "sendTransactions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "receiveTransactions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "purchases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exchanges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pushNotificationTokens": {
+            "type": "string"
+          },
+          "buyTrades": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sellTrades": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contactBooks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "membershipExpiredTime": {
+            "type": "datetime"
+          },
+          "storeId": {
+            "type": "string"
+          },
+          "vendorEmail": {
+            "type": "string"
+          },
+          "vendorId": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Users-Permissions - User"
+    }
+  ]
+}

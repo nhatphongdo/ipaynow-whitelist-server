@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/stores",
+      "handler": "Store.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/stores/purchase",
+      "handler": "Store.purchase",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/stores/pay",
+      "handler": "Store.pay",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    }
+  ]
+}

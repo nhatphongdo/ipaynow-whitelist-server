@@ -1,0 +1,44 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/trades",
+      "handler": "Trade.find",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trades/create",
+      "handler": "Trade.create",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trades/approve",
+      "handler": "Trade.approve",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trades/reject",
+      "handler": "Trade.reject",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trades/detail",
+      "handler": "Trade.findOne",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    }
+  ]
+}

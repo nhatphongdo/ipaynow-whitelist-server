@@ -1,0 +1,26 @@
+{
+  "defaultConnection": "default",
+  "connections": {
+    "default": {
+      "connector": "bookshelf",
+      "settings": {
+        "client": "postgres",
+        "database": "whitelabel_server",
+        "host": "127.0.0.1",
+        "port": 5432,
+        "username": "postgres",
+        "password": "123456"
+      },
+      "options": {
+        "debug": false,
+        "pool": {
+          "min": 0,
+          "max": 10,
+          "idleTimeoutMillis": 30000,
+          "createTimeoutMillis": 30000,
+          "acquireTimeoutMillis": 30000
+        }
+      }
+    }
+  }
+}

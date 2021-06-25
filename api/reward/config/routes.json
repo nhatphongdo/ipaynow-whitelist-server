@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/rewards",
+      "handler": "Reward.find",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/rewards/info",
+      "handler": "Reward.info",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    }
+  ]
+}

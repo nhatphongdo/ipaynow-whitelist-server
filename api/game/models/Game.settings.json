@@ -1,0 +1,75 @@
+{
+  "connection": "default",
+  "collectionName": "games",
+  "info": {
+    "name": "game",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "startTime": {
+      "type": "datetime"
+    },
+    "endTime": {
+      "type": "datetime"
+    },
+    "endJoinTime": {
+      "type": "datetime"
+    },
+    "repeat": {
+      "type": "string"
+    },
+    "repeatFrom": {
+      "type": "datetime"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "text"
+    },
+    "type": {
+      "enum": [
+        "Lucky Draw",
+        "Rolling Dice"
+      ],
+      "type": "enumeration",
+      "default": "Lucky Draw"
+    },
+    "cost": {
+      "type": "float"
+    },
+    "unit": {
+      "default": "Reward",
+      "enum": [
+        "Reward"
+      ],
+      "type": "enumeration"
+    },
+    "prize": {
+      "type": "float"
+    },
+    "prizeUnit": {
+      "default": "Reward",
+      "enum": [
+        "Reward",
+        "PercentOfTotalCost"
+      ],
+      "type": "enumeration"
+    },
+    "gameSessions": {
+      "via": "game",
+      "collection": "gamesession"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "connection": "default",
+  "collectionName": "earns",
+  "info": {
+    "name": "earn",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "required": true,
+      "type": "string"
+    },
+    "wholeRate": {
+      "type": "float",
+      "required": true
+    },
+    "lockPeriodValue": {
+      "type": "integer",
+      "required": true
+    },
+    "lockPeriodUnit": {
+      "default": "Day",
+      "enum": [
+        "Day",
+        "Week",
+        "Month",
+        "Quarter",
+        "Year"
+      ],
+      "required": true,
+      "type": "enumeration"
+    },
+    "locks": {
+      "via": "earn",
+      "collection": "lock"
+    }
+  }
+}

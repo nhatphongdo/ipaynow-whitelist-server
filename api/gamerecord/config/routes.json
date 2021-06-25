@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/gamerecords",
+      "handler": "Gamerecord.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gamerecords/count",
+      "handler": "Gamerecord.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/gamerecords/:id",
+      "handler": "Gamerecord.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/gamerecords",
+      "handler": "Gamerecord.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/gamerecords/:id",
+      "handler": "Gamerecord.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/gamerecords/:id",
+      "handler": "Gamerecord.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

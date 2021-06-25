@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "rates",
+  "info": {
+    "name": "rate",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "baseCurrency": {
+      "type": "string"
+    },
+    "foreignCurrency": {
+      "type": "string"
+    },
+    "rate": {
+      "type": "float"
+    },
+    "source": {
+      "type": "string"
+    }
+  }
+}

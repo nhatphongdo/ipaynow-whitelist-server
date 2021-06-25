@@ -1,0 +1,36 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/notifications",
+      "handler": "Notification.find",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/read",
+      "handler": "Notification.readNotification",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/send",
+      "handler": "Notification.sendNotification",
+      "config": {
+        "policies": ["plugins.users-permissions.isAdmin"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/:id",
+      "handler": "Notification.findOne",
+      "config": {
+        "policies": ["plugins.users-permissions.isAuthenticated"]
+      }
+    }
+  ]
+}

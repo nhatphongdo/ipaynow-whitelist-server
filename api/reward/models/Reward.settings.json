@@ -1,0 +1,64 @@
+{
+  "connection": "default",
+  "collectionName": "rewards",
+  "info": {
+    "name": "reward",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "amount": {
+      "type": "float",
+      "required": true
+    },
+    "type": {
+      "required": true,
+      "enum": [
+        "Unknown",
+        "New User",
+        "Sent Rebate",
+        "Deposit",
+        "Referral Bonus",
+        "Receive",
+        "Earn Locked",
+        "Earn Unlocked",
+        "Earn Interest",
+        "Daily Interest Deduction",
+        "Game Prize",
+        "Game Spent",
+        "Buy Store Item"
+      ],
+      "default": "Unknown",
+      "type": "enumeration"
+    },
+    "note": {
+      "type": "text"
+    },
+    "lock": {
+      "model": "lock"
+    },
+    "gameRecord": {
+      "model": "gamerecord"
+    },
+    "purchase": {
+      "model": "purchase",
+      "via": "reward"
+    },
+    "transaction": {
+      "model": "transaction",
+      "via": "rewards"
+    },
+    "user": {
+      "via": "rewards",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

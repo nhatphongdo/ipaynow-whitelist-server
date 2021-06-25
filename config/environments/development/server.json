@@ -1,0 +1,13 @@
+{
+  "host": "localhost",
+  "port": 8000,
+  "proxy": {
+    "enabled": false
+  },
+  "cron": {
+    "enabled": true
+  },
+  "admin": {
+    "autoOpen": false
+  }
+}

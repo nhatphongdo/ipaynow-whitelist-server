@@ -1,0 +1,28 @@
+{
+  "connection": "default",
+  "collectionName": "contact_books",
+  "info": {
+    "name": "ContactBook"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "walletAddress": {
+      "type": "string"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "owner": {
+      "via": "contactBooks",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

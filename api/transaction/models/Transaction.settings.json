@@ -1,0 +1,98 @@
+{
+  "connection": "default",
+  "collectionName": "transactions",
+  "info": {
+    "name": "transaction",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "fromAddress": {
+      "type": "string"
+    },
+    "toAddress": {
+      "type": "string"
+    },
+    "transactionHash": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "type": {
+      "default": "Transfer",
+      "enum": [
+        "Transfer",
+        "Split Transfer",
+        "Buy Reward",
+        "Deposit",
+        "Game Spent",
+        "Exchange Sell Escrow",
+        "Exchange Sell Release",
+        "Buy Store Item"
+      ],
+      "type": "enumeration"
+    },
+    "status": {
+      "default": "Pending",
+      "enum": [
+        "Success",
+        "Failed",
+        "Pending"
+      ],
+      "type": "enumeration"
+    },
+    "blockchainReceipt": {
+      "type": "json"
+    },
+    "processed": {
+      "type": "boolean"
+    },
+    "processedOn": {
+      "type": "datetime"
+    },
+    "processedNote": {
+      "type": "text"
+    },
+    "purchase": {
+      "model": "purchase",
+      "via": "transaction"
+    },
+    "exchange": {
+      "via": "transaction",
+      "model": "exchange"
+    },
+    "sender": {
+      "via": "sendTransactions",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "receiver": {
+      "via": "receiveTransactions",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "trade": {
+      "model": "trade",
+      "via": "transaction"
+    },
+    "interest": {
+      "via": "transaction",
+      "model": "interest"
+    },
+    "rewards": {
+      "collection": "reward",
+      "via": "transaction"
+    }
+  }
+}

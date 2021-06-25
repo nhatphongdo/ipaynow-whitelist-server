@@ -1,0 +1,991 @@
+{
+  "paths": {
+    "/purchases": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Purchase"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Purchase"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Purchase"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Purchase"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPurchase"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/purchases/count": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Purchase"
+        ],
+        "parameters": []
+      }
+    },
+    "/purchases/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Purchase"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Purchase"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Purchase"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Purchase"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPurchase"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a record",
+        "responses": {
+          "200": {
+            "description": "deletes a single record based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Purchase"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Purchase": {
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "purchasedTime": {
+            "type": "datetime"
+          },
+          "status": {
+            "type": "string",
+            "default": "In Cart",
+            "enum": [
+              "In Cart",
+              "Payment Pending",
+              "Completed"
+            ]
+          },
+          "total": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "default": "Reward",
+            "enum": [
+              "Reward",
+              "HDN"
+            ]
+          },
+          "store": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "nameEN": {
+                "type": "string"
+              },
+              "nameCN": {
+                "type": "string"
+              },
+              "nameJP": {
+                "type": "string"
+              },
+              "nameKR": {
+                "type": "string"
+              },
+              "nameVN": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "membership": {
+                "type": "string"
+              },
+              "specialFormat": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "purchases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "data": {
+            "type": "object"
+          },
+          "transaction": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fromAddress": {
+                "type": "string"
+              },
+              "toAddress": {
+                "type": "string"
+              },
+              "transactionHash": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "blockchainReceipt": {
+                "type": "object"
+              },
+              "processed": {
+                "type": "boolean"
+              },
+              "processedOn": {
+                "type": "datetime"
+              },
+              "processedNote": {
+                "type": "string"
+              },
+              "purchase": {
+                "type": "string"
+              },
+              "exchange": {
+                "type": "string"
+              },
+              "sender": {
+                "type": "string"
+              },
+              "receiver": {
+                "type": "string"
+              },
+              "trade": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string"
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "user": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "walletAddress",
+              "accountNumber",
+              "availability",
+              "isMerchant"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "walletAddress": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "string"
+              },
+              "isMerchant": {
+                "type": "boolean"
+              },
+              "applyMerchantTime": {
+                "type": "datetime"
+              },
+              "vendorName": {
+                "type": "string"
+              },
+              "vendorCountry": {
+                "type": "string"
+              },
+              "vendorAddressLocation": {
+                "type": "string"
+              },
+              "vendorContactNumber": {
+                "type": "string"
+              },
+              "vendorService": {
+                "type": "string"
+              },
+              "vendorAddress": {
+                "type": "string"
+              },
+              "vendorDescription": {
+                "type": "string"
+              },
+              "father": {
+                "type": "string"
+              },
+              "grandFather": {
+                "type": "string"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membership": {
+                "type": "string"
+              },
+              "interests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "locks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorLogo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorImages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorCategory": {
+                "type": "string"
+              },
+              "logs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "merchantReviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "gameRecords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "paymentInfo": {
+                "type": "string"
+              },
+              "contactNumber": {
+                "type": "string"
+              },
+              "sendTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "receiveTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "purchases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "exchanges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pushNotificationTokens": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contactBooks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membershipExpiredTime": {
+                "type": "datetime"
+              },
+              "storeId": {
+                "type": "string"
+              },
+              "vendorEmail": {
+                "type": "string"
+              },
+              "vendorId": {
+                "type": "string"
+              }
+            }
+          },
+          "reward": {
+            "required": [
+              "id",
+              "amount",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "lock": {
+                "type": "string"
+              },
+              "gameRecord": {
+                "type": "string"
+              },
+              "purchase": {
+                "type": "string"
+              },
+              "transaction": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "NewPurchase": {
+        "properties": {
+          "amount": {
+            "type": "number"
+          },
+          "purchasedTime": {
+            "type": "datetime"
+          },
+          "status": {
+            "type": "string",
+            "default": "In Cart",
+            "enum": [
+              "In Cart",
+              "Payment Pending",
+              "Completed"
+            ]
+          },
+          "total": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "default": "Reward",
+            "enum": [
+              "Reward",
+              "HDN"
+            ]
+          },
+          "store": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          },
+          "transaction": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          },
+          "user": {
+            "type": "string"
+          },
+          "reward": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Purchase"
+    }
+  ]
+}

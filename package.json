@@ -1,0 +1,52 @@
+{
+  "name": "server",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Haladinar Reward Server",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cache-manager": "^2.10.0",
+    "cache-manager-redis": "^0.6.0",
+    "ethereumjs-tx": "^1.3.7",
+    "expo-server-sdk": "^3.3.0",
+    "hashids": "^1.2.2",
+    "hybrid-crypto-js": "^0.1.7",
+    "knex": "^0.20.8",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "node-forge": "^0.8.5",
+    "numeral": "^2.0.6",
+    "pg": "latest",
+    "socket.io": "^2.2.0",
+    "strapi": "3.0.0-beta.18.7",
+    "strapi-admin": "3.0.0-beta.18.7",
+    "strapi-connector-bookshelf": "3.0.0-beta.18.7",
+    "strapi-plugin-content-manager": "3.0.0-beta.18.7",
+    "strapi-plugin-content-type-builder": "3.0.0-beta.18.7",
+    "strapi-plugin-documentation": "3.0.0-beta.18.7",
+    "strapi-plugin-email": "3.0.0-beta.18.7",
+    "strapi-plugin-upload": "3.0.0-beta.18.7",
+    "strapi-plugin-users-permissions": "3.0.0-beta.18.7",
+    "strapi-utils": "3.0.0-beta.18.7",
+    "web3": "^1.0.0-beta.55",
+    "devstore-client": "https://bitbucket.org:devsignteam/devstore-client#1.0.1"
+  },
+  "author": {
+    "name": "nhatphongdo"
+  },
+  "strapi": {
+    "uuid": "a3cd7f2b-717b-474b-8ed3-851b9da4eb6b"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

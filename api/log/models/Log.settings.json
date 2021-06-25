@@ -1,0 +1,38 @@
+{
+  "connection": "default",
+  "collectionName": "logs",
+  "info": {
+    "name": "log",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "message": {
+      "type": "text"
+    },
+    "exception": {
+      "type": "json"
+    },
+    "type": {
+      "enum": [
+        "Information",
+        "Error",
+        "Warning"
+      ],
+      "type": "enumeration",
+      "default": "Information"
+    },
+    "user": {
+      "via": "logs",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

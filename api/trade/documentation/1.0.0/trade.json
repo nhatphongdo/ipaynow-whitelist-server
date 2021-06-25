@@ -1,0 +1,1085 @@
+{
+  "paths": {
+    "/trades": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Trade"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Trade"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trades/create": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trade"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Trade"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTrade"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trades/approve": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Trade"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trades/reject": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Trade"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/trades/detail": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trade"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Trade"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Trade": {
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "postTime": {
+            "type": "datetime"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "default": "Pending",
+            "enum": [
+              "Pending",
+              "Sent to Seller",
+              "Wait for Seller approval",
+              "Wait for payment",
+              "Paid and wait for confirmation",
+              "Sending to Buyer",
+              "Completed",
+              "Rejected",
+              "No payment",
+              "No token",
+              "Cancel payment",
+              "Cancelled"
+            ]
+          },
+          "sellerApproveTime": {
+            "type": "datetime"
+          },
+          "paidTime": {
+            "type": "datetime"
+          },
+          "confirmedTime": {
+            "type": "datetime"
+          },
+          "completedTime": {
+            "type": "datetime"
+          },
+          "transaction": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fromAddress": {
+                "type": "string"
+              },
+              "toAddress": {
+                "type": "string"
+              },
+              "transactionHash": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "blockchainReceipt": {
+                "type": "object"
+              },
+              "processed": {
+                "type": "boolean"
+              },
+              "processedOn": {
+                "type": "datetime"
+              },
+              "processedNote": {
+                "type": "string"
+              },
+              "purchase": {
+                "type": "string"
+              },
+              "exchange": {
+                "type": "string"
+              },
+              "sender": {
+                "type": "string"
+              },
+              "receiver": {
+                "type": "string"
+              },
+              "trade": {
+                "type": "string"
+              },
+              "interest": {
+                "type": "string"
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "buyExchange": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "postTime": {
+                "type": "datetime"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "minAmount": {
+                "type": "number"
+              },
+              "maxAmount": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "isValid": {
+                "type": "boolean"
+              },
+              "paymentMethods": {
+                "type": "string"
+              },
+              "remainAmount": {
+                "type": "number"
+              },
+              "transaction": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "sellExchange": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "postTime": {
+                "type": "datetime"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "minAmount": {
+                "type": "number"
+              },
+              "maxAmount": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "isValid": {
+                "type": "boolean"
+              },
+              "paymentMethods": {
+                "type": "string"
+              },
+              "remainAmount": {
+                "type": "number"
+              },
+              "transaction": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "buyer": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "walletAddress",
+              "accountNumber",
+              "availability",
+              "isMerchant"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "walletAddress": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "string"
+              },
+              "isMerchant": {
+                "type": "boolean"
+              },
+              "applyMerchantTime": {
+                "type": "datetime"
+              },
+              "vendorName": {
+                "type": "string"
+              },
+              "vendorCountry": {
+                "type": "string"
+              },
+              "vendorAddressLocation": {
+                "type": "string"
+              },
+              "vendorContactNumber": {
+                "type": "string"
+              },
+              "vendorService": {
+                "type": "string"
+              },
+              "vendorAddress": {
+                "type": "string"
+              },
+              "vendorDescription": {
+                "type": "string"
+              },
+              "father": {
+                "type": "string"
+              },
+              "grandFather": {
+                "type": "string"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membership": {
+                "type": "string"
+              },
+              "interests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "locks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorLogo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorImages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorCategory": {
+                "type": "string"
+              },
+              "logs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "merchantReviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "gameRecords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "paymentInfo": {
+                "type": "string"
+              },
+              "contactNumber": {
+                "type": "string"
+              },
+              "sendTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "receiveTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "purchases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "exchanges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pushNotificationTokens": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contactBooks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membershipExpiredTime": {
+                "type": "datetime"
+              },
+              "storeId": {
+                "type": "string"
+              },
+              "vendorEmail": {
+                "type": "string"
+              },
+              "vendorId": {
+                "type": "string"
+              }
+            }
+          },
+          "seller": {
+            "required": [
+              "id",
+              "username",
+              "email",
+              "walletAddress",
+              "accountNumber",
+              "availability",
+              "isMerchant"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "walletAddress": {
+                "type": "string"
+              },
+              "accountNumber": {
+                "type": "integer"
+              },
+              "fullName": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "string"
+              },
+              "isMerchant": {
+                "type": "boolean"
+              },
+              "applyMerchantTime": {
+                "type": "datetime"
+              },
+              "vendorName": {
+                "type": "string"
+              },
+              "vendorCountry": {
+                "type": "string"
+              },
+              "vendorAddressLocation": {
+                "type": "string"
+              },
+              "vendorContactNumber": {
+                "type": "string"
+              },
+              "vendorService": {
+                "type": "string"
+              },
+              "vendorAddress": {
+                "type": "string"
+              },
+              "vendorDescription": {
+                "type": "string"
+              },
+              "father": {
+                "type": "string"
+              },
+              "grandFather": {
+                "type": "string"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membership": {
+                "type": "string"
+              },
+              "interests": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "locks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorLogo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorImages": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "vendorCategory": {
+                "type": "string"
+              },
+              "logs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "merchantReviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "gameRecords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "paymentInfo": {
+                "type": "string"
+              },
+              "contactNumber": {
+                "type": "string"
+              },
+              "sendTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "receiveTransactions": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "purchases": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "exchanges": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pushNotificationTokens": {
+                "type": "string"
+              },
+              "buyTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sellTrades": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notifications": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "contactBooks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "membershipExpiredTime": {
+                "type": "datetime"
+              },
+              "storeId": {
+                "type": "string"
+              },
+              "vendorEmail": {
+                "type": "string"
+              },
+              "vendorId": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "NewTrade": {
+        "properties": {
+          "postTime": {
+            "type": "datetime"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "default": "Pending",
+            "enum": [
+              "Pending",
+              "Sent to Seller",
+              "Wait for Seller approval",
+              "Wait for payment",
+              "Paid and wait for confirmation",
+              "Sending to Buyer",
+              "Completed",
+              "Rejected",
+              "No payment",
+              "No token",
+              "Cancel payment",
+              "Cancelled"
+            ]
+          },
+          "sellerApproveTime": {
+            "type": "datetime"
+          },
+          "paidTime": {
+            "type": "datetime"
+          },
+          "confirmedTime": {
+            "type": "datetime"
+          },
+          "completedTime": {
+            "type": "datetime"
+          },
+          "transaction": {
+            "type": "string"
+          },
+          "buyExchange": {
+            "type": "string"
+          },
+          "sellExchange": {
+            "type": "string"
+          },
+          "buyer": {
+            "type": "string"
+          },
+          "seller": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Trade"
+    }
+  ]
+}

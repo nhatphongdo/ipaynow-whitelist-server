@@ -1,0 +1,49 @@
+{
+  "connection": "default",
+  "collectionName": "formats",
+  "info": {
+    "name": "format",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "format": {
+      "required": true,
+      "type": "string"
+    },
+    "type": {
+      "required": true,
+      "enum": [
+        "Account Number"
+      ],
+      "default": "Account Number",
+      "type": "enumeration"
+    },
+    "enabled": {
+      "required": true,
+      "default": true,
+      "type": "boolean"
+    },
+    "validation": {
+      "default": "Compare",
+      "enum": [
+        "Compare",
+        "Range",
+        "Pattern",
+        "Regex"
+      ],
+      "type": "enumeration"
+    },
+    "stores": {
+      "collection": "store",
+      "via": "specialFormat"
+    }
+  }
+}

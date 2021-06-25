@@ -1,0 +1,67 @@
+{
+  "connection": "default",
+  "collectionName": "exchanges",
+  "info": {
+    "name": "exchange",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "postTime": {
+      "type": "datetime"
+    },
+    "amount": {
+      "type": "float"
+    },
+    "minAmount": {
+      "type": "float"
+    },
+    "maxAmount": {
+      "type": "float"
+    },
+    "type": {
+      "default": "Buy",
+      "enum": [
+        "Buy",
+        "Sell"
+      ],
+      "type": "enumeration"
+    },
+    "isValid": {
+      "type": "boolean"
+    },
+    "paymentMethods": {
+      "type": "string"
+    },
+    "remainAmount": {
+      "type": "float"
+    },
+    "transaction": {
+      "model": "transaction",
+      "via": "exchange"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "user": {
+      "via": "exchanges",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "buyTrades": {
+      "collection": "trade",
+      "via": "buyExchange"
+    },
+    "sellTrades": {
+      "collection": "trade",
+      "via": "sellExchange"
+    }
+  }
+}

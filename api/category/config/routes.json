@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/categories",
+      "handler": "Category.find",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

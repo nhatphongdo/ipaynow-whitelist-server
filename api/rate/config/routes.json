@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/rates",
+      "handler": "Rate.find",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

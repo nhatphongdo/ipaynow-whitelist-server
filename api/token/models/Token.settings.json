@@ -1,0 +1,40 @@
+{
+  "connection": "default",
+  "collectionName": "tokens",
+  "info": {
+    "name": "token",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "clientPublicKey": {
+      "unique": true,
+      "required": true,
+      "type": "text"
+    },
+    "serverPrivateKey": {
+      "required": true,
+      "type": "text"
+    },
+    "serverPublicKey": {
+      "required": true,
+      "type": "text"
+    },
+    "enabled": {
+      "default": true,
+      "type": "boolean"
+    },
+    "user": {
+      "via": "tokens",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "connection": "default",
+  "collectionName": "interests",
+  "info": {
+    "name": "interest",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "amount": {
+      "type": "float"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "startedTime": {
+      "type": "datetime"
+    },
+    "endedTime": {
+      "type": "datetime"
+    },
+    "processed": {
+      "type": "boolean"
+    },
+    "user": {
+      "via": "interests",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "transaction": {
+      "model": "transaction",
+      "via": "interest"
+    }
+  }
+}
