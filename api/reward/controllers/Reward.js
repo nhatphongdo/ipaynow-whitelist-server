@@ -4,7 +4,7 @@ const _ = require("lodash");
 const moment = require("moment");
 
 module.exports = {
-  info: async ctx => {
+  info: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -16,7 +16,7 @@ module.exports = {
         {
           user: ctx.state.user.id,
           finished_ne: true,
-          endedOn_gt: moment().utc().toDate()
+          endedOn_gt: moment().utc().toDate(),
         },
         ["earn"]
       );
@@ -31,7 +31,7 @@ module.exports = {
       if (currentLock.length > 0) {
         currentLock[0].earn = _.omit(currentLock[0].earn, [
           "created_at",
-          "updated_at"
+          "updated_at",
           // "locks"
         ]);
       }
@@ -40,7 +40,10 @@ module.exports = {
         balance: await strapi.services.reward.getRewardBalanceByUser(
           ctx.state.user.id
         ),
-        lock: currentLock.length > 0 ? currentLock[0] : null
+        lockBalance: await strapi.services.reward.getLockBalanceByUser(
+          ctx.state.user.id
+        ),
+        lock: currentLock.length > 0 ? currentLock[0] : null,
       });
     } catch (err) {
       strapi.log.fatal(err);
@@ -51,5 +54,5 @@ module.exports = {
         ctx.request.admin ? [{ messages: [{ id: adminError }] }] : err.message
       );
     }
-  }
+  },
 };

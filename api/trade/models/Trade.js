@@ -15,7 +15,7 @@ const NO_TOKEN = 'No token';
 const CANCEL_PAYMENT = 'Cancel payment';
 const CANCELLED = 'Cancelled';
 
-const AllTradesByUserCache = 'exchanges.trades.user-';
+const AllTradesByUserCache = 'exchanges.trades.user:';
 
 module.exports = {
   PENDING,

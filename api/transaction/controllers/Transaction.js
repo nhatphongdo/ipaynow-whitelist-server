@@ -83,7 +83,7 @@ module.exports = {
         //   toAddress: message.toAddress ? message.toAddress.toLowerCase() : '',
         //   transactionHash: message.txHash.toLowerCase(),
         //   amount: message.amount,
-        //   unit: message.isEth ? 'ETH' : 'HDN',
+        //   unit: message.isEth ? 'ETH' : 'USDT',
         //   sender: ctx.state.user.id,
         //   receiver: receiver ? receiver.id : null,
         //   type: message.type || strapi.models.transaction.TRANSFER,

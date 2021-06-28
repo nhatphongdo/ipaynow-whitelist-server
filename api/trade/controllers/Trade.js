@@ -260,7 +260,7 @@ module.exports = {
             strapi.services.notification.send(
               trade.buyer.id,
               "Haladinar",
-              `User ${trade.seller.accountNumber} accepted to sell ${trade.unit} to you. Please check 'HDN TRADE' to continue.`
+              `User ${trade.seller.accountNumber} accepted to sell ${trade.unit} to you. Please check 'P2PX' to continue.`
             );
 
             return ctx.send({
@@ -338,7 +338,7 @@ module.exports = {
             strapi.services.notification.send(
               trade.seller.id,
               "Haladinar",
-              `User ${trade.buyer.accountNumber} confirmed payment for ${trade.unit} purchase. Please check 'HDN TRADE' to continue.`
+              `User ${trade.buyer.accountNumber} confirmed payment for ${trade.unit} purchase. Please check 'P2PX' to continue.`
             );
 
             return ctx.send({
@@ -411,7 +411,7 @@ module.exports = {
           strapi.services.notification.send(
             trade.buyer.id,
             "Haladinar",
-            `User ${trade.seller.accountNumber} confirmed receiving payment. We are sending you the ${trade.unit}. Please check 'HDN TRADE' for progress.`
+            `User ${trade.seller.accountNumber} confirmed receiving payment. We are sending you the ${trade.unit}. Please check 'P2PX' for progress.`
           );
 
           // Send token
@@ -449,7 +449,7 @@ module.exports = {
                   strapi.services.notification.send(
                     trade.buyer.id,
                     "Haladinar",
-                    `We sent ${trade.amount} ${trade.unit} to your wallet. Please check 'HDN TRADE' to finish the trade.`
+                    `We sent ${trade.amount} ${trade.unit} to your wallet. Please check 'P2PX' to finish the trade.`
                   );
                 }
               }

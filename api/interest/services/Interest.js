@@ -18,22 +18,22 @@ module.exports = {
       }
       const subQuery = strapi.models.interest
         .query()
-        .where(function() {
+        .where(function () {
           this.where("processed", false).orWhereNull("processed");
         })
-        .andWhere("unit", strapi.models.transaction.HDN)
+        .andWhere("unit", strapi.models.transaction.USDT)
         .groupBy("user") // transaction group which has more than 1 item is split transfer
         .havingRaw("sum(amount) >= " + thresholdSend.toString())
         .select("user");
 
       let interests = (
         await strapi.models.interest
-          .query(qb => {
+          .query((qb) => {
             qb.whereIn("user", subQuery)
-              .andWhere(function() {
+              .andWhere(function () {
                 this.where("processed", false).orWhereNull("processed");
               })
-              .andWhere("unit", strapi.models.transaction.HDN)
+              .andWhere("unit", strapi.models.transaction.USDT)
               .select();
           })
           .fetchAll()
@@ -47,18 +47,18 @@ module.exports = {
           return;
         }
 
-        _.forEach(value, async item => {
+        _.forEach(value, async (item) => {
           await strapi.services.interest.update(
             {
-              id: item.id
+              id: item.id,
             },
             {
-              processed: true
+              processed: true,
             }
           );
         });
 
-        const hdn = _.sumBy(value, "amount");
+        const usdt = _.sumBy(value, "amount");
         const account = eth.getAccount(
           await strapi.services.setting.getSetting(
             strapi.models.setting.DistributingWalletPrivateKey
@@ -67,34 +67,35 @@ module.exports = {
         eth.sendToken(
           account,
           user.walletAddress,
-          hdn,
+          usdt,
           null,
-          async receipt => {
+          async (receipt) => {
             if (receipt.status) {
-              var tx = await strapi.services.transaction.updateBlockchainTransaction(
-                receipt.from,
-                user.walletAddress,
-                receipt.transactionHash,
-                hdn,
-                false,
-                receipt.status,
-                receipt
-              );
+              var tx =
+                await strapi.services.transaction.updateBlockchainTransaction(
+                  receipt.from,
+                  user.walletAddress,
+                  receipt.transactionHash,
+                  usdt,
+                  false,
+                  receipt.status,
+                  receipt
+                );
               if (tx) {
-                _.forEach(value, async item => {
+                _.forEach(value, async (item) => {
                   await strapi.services.interest.update(
                     {
-                      id: item.id
+                      id: item.id,
                     },
                     {
                       processed: true,
-                      transaction: tx.id
+                      transaction: tx.id,
                     }
                   );
                 });
 
                 await strapi.services.log.info(
-                  `User ${user.accountNumber} receives ${hdn} HDN as Daily interest.`,
+                  `User ${user.accountNumber} receives ${usdt} USDT as Daily interest.`,
                   user
                 );
               }
@@ -103,13 +104,13 @@ module.exports = {
           null,
           async (error, receipt) => {
             strapi.log.fatal(error);
-            _.forEach(value, async item => {
+            _.forEach(value, async (item) => {
               await strapi.services.interest.update(
                 {
-                  id: item.id
+                  id: item.id,
                 },
                 {
-                  processed: false
+                  processed: false,
                 }
               );
             });
@@ -119,5 +120,5 @@ module.exports = {
     } catch (err) {
       strapi.log.fatal(err);
     }
-  }
+  },
 };

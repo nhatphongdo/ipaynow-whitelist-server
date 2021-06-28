@@ -2,7 +2,7 @@
 
 const { Cache } = require('../../../services/cache');
 
-const GameSessionByIdCache = 'games.session.id-';
+const GameSessionByIdCache = 'games.session.id:';
 
 /**
  * Lifecycle callbacks for the `Gamesession` model.

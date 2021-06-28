@@ -9,7 +9,7 @@ const Eth = require("../../../services/eth");
 const eth = Eth();
 
 module.exports = {
-  find: async ctx => {
+  find: async (ctx) => {
     let exchanges = await Cache.get(strapi.models.exchange.AllExchangesCache);
     if (!exchanges) {
       exchanges = await strapi.services.exchange.find(
@@ -18,7 +18,7 @@ module.exports = {
           isValid: true,
           remainAmount_gt: 0,
           _sort: "postTime",
-          _limit: 100
+          _limit: 100,
         },
         ["user"]
       );
@@ -39,7 +39,7 @@ module.exports = {
     ctx.send(exchanges);
   },
 
-  create: async ctx => {
+  create: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -83,7 +83,7 @@ module.exports = {
             isValid: true,
             user_ne: ctx.state.user.id,
             remainAmount_gt: 0,
-            _limit: 1
+            _limit: 1,
           },
           []
         );
@@ -94,17 +94,15 @@ module.exports = {
 
         // Create Buy request
         const exchange = await strapi.services.exchange.create({
-          postTime: moment()
-            .utc()
-            .toDate(),
+          postTime: moment().utc().toDate(),
           amount: amountValue.value(),
-          unit: strapi.models.exchange.HDN,
+          unit: strapi.models.exchange.USDT,
           minAmount: 0,
           maxAmount: amountValue.value(),
           type: strapi.models.exchange.BUY,
           isValid: true,
           remainAmount: amountValue.value(),
-          user: ctx.state.user.id
+          user: ctx.state.user.id,
         });
 
         // Create trade request
@@ -118,7 +116,7 @@ module.exports = {
               user_ne: ctx.state.user.id,
               remainAmount_gt: 0,
               _sort: "postTime",
-              _limit: 1
+              _limit: 1,
             },
             []
           );
@@ -131,31 +129,29 @@ module.exports = {
           // Create trade
           const tradeAmount = Math.min(exchanges[0].remainAmount, amount);
           const trade = await strapi.services.trade.create({
-            postTime: moment()
-              .utc()
-              .toDate(),
+            postTime: moment().utc().toDate(),
             amount: tradeAmount,
             unit: exchanges[0].unit,
             buyer: ctx.state.user.id,
             seller: exchanges[0].user,
             status: strapi.models.trade.WAIT_FOR_SELLER_APPROVAL,
             buyExchange: exchange.id,
-            sellExchange: exchanges[0].id
+            sellExchange: exchanges[0].id,
           });
 
           strapi.services.notification.send(
             exchanges[0].user,
             "Haladinar",
-            `User ${ctx.state.user.accountNumber} wants to buy ${tradeAmount} ${exchanges[0].unit} from you. Please approve request in 'HDN TRADE'.`
+            `User ${ctx.state.user.accountNumber} wants to buy ${tradeAmount} ${exchanges[0].unit} from you. Please approve request in 'P2PX'.`
           );
 
           // Deduct from SELL
           await strapi.services.exchange.update(
             {
-              id: exchanges[0].id
+              id: exchanges[0].id,
             },
             {
-              remainAmount: exchanges[0].remainAmount - tradeAmount
+              remainAmount: exchanges[0].remainAmount - tradeAmount,
             }
           );
 
@@ -181,14 +177,8 @@ module.exports = {
         if (isNaN(timesPerDay)) {
           timesPerDay = 0;
         }
-        const startTime = moment()
-          .utc()
-          .startOf("day")
-          .toDate();
-        const endTime = moment()
-          .utc()
-          .endOf("day")
-          .toDate();
+        const startTime = moment().utc().startOf("day").toDate();
+        const endTime = moment().utc().endOf("day").toDate();
         if (amountPerDay > 0 || timesPerDay > 0) {
           const exchanges = await strapi.services.exchange.find(
             {
@@ -196,7 +186,7 @@ module.exports = {
               isValid: true,
               user: ctx.state.user.id,
               postTime_gte: startTime,
-              postTime_lte: endTime
+              postTime_lte: endTime,
             },
             []
           );
@@ -217,7 +207,7 @@ module.exports = {
         }
 
         const transactions = await strapi.services.transaction.find({
-          transactionHash: message.txHash.toLowerCase()
+          transactionHash: message.txHash.toLowerCase(),
         });
         if (transactions.length === 0) {
           return ctx.badRequest(null, "Cannot find corresponding transaction");
@@ -239,8 +229,11 @@ module.exports = {
           )) || "";
         if (
           transactions[0].toAddress !== escrowWallet.toLowerCase() ||
-          transactions[0].unit !== strapi.models.transaction.HDN ||
-          Math.abs(numeral(transactions[0].amount).value() - (amountValue.value() + amountValue.value() * feeRate)) >= 0.00001 ||
+          transactions[0].unit !== strapi.models.transaction.USDT ||
+          Math.abs(
+            numeral(transactions[0].amount).value() -
+              (amountValue.value() + amountValue.value() * feeRate)
+          ) >= 0.00001 ||
           transactions[0].processed === true
         ) {
           return ctx.badRequest(null, "Transaction is not valid");
@@ -254,11 +247,9 @@ module.exports = {
 
         // Create Sell request
         const exchange = await strapi.services.exchange.create({
-          postTime: moment()
-            .utc()
-            .toDate(),
+          postTime: moment().utc().toDate(),
           amount: amountValue.value(),
-          unit: strapi.models.exchange.HDN,
+          unit: strapi.models.exchange.USDT,
           minAmount: 0,
           maxAmount: amountValue.value(),
           type: strapi.models.exchange.SELL,
@@ -266,20 +257,18 @@ module.exports = {
           isValid: true,
           remainAmount: amountValue.value(),
           user: ctx.state.user.id,
-          transaction: transactions[0].id
+          transaction: transactions[0].id,
         });
 
         await strapi.services.transaction.update(
           {
-            id: transactions[0].id
+            id: transactions[0].id,
           },
           {
             exchange: exchange.id,
             processed: true,
-            processedOn: moment()
-              .utc()
-              .toDate(),
-            processedNote: `This transaction is processed with Exchange #${exchange.id}`
+            processedOn: moment().utc().toDate(),
+            processedNote: `This transaction is processed with Exchange #${exchange.id}`,
           }
         );
 
@@ -296,7 +285,7 @@ module.exports = {
     }
   },
 
-  withdraw: async ctx => {
+  withdraw: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -310,7 +299,7 @@ module.exports = {
 
       const exchange = await strapi.services.exchange.findOne(
         {
-          id: message.id
+          id: message.id,
         },
         ["user"]
       );
@@ -322,7 +311,7 @@ module.exports = {
         exchange.user.id !== ctx.state.user.id ||
         exchange.remainAmount <= 0 ||
         !exchange.transaction ||
-        exchange.unit !== strapi.models.exchange.HDN
+        exchange.unit !== strapi.models.exchange.USDT
       ) {
         return ctx.badRequest(null, "Invalid request");
       }
@@ -330,82 +319,94 @@ module.exports = {
       const savedAmount = exchange.remainAmount;
       await strapi.services.exchange.update(
         {
-          id: exchange.id
+          id: exchange.id,
         },
         {
-          remainAmount: 0
+          remainAmount: 0,
         }
       );
 
       // Resend
-      var account = eth.getAccount(
-        await strapi.services.setting.getSetting(
-          strapi.models.setting.ExchangeEscrowWalletPrivateKeySetting
-        )
-      );
-      eth.sendToken(
-        account,
-        exchange.user.walletAddress,
-        savedAmount,
-        null,
-        async receipt => {
-          if (receipt.status) {
-            var tx = await strapi.services.transaction.updateBlockchainTransaction(
-              receipt.from,
-              exchange.user.walletAddress,
-              receipt.transactionHash,
-              savedAmount,
-              false,
-              receipt.status,
-              receipt
+      try {
+        var account = eth.getAccount(
+          await strapi.services.setting.getSetting(
+            strapi.models.setting.ExchangeEscrowWalletPrivateKeySetting
+          )
+        );
+        eth.sendToken(
+          account,
+          exchange.user.walletAddress,
+          savedAmount,
+          null,
+          async (receipt) => {
+            if (receipt.status) {
+              var tx =
+                await strapi.services.transaction.updateBlockchainTransaction(
+                  receipt.from,
+                  exchange.user.walletAddress,
+                  receipt.transactionHash,
+                  savedAmount,
+                  false,
+                  receipt.status,
+                  receipt
+                );
+              if (tx) {
+                await strapi.services.transaction.update(
+                  {
+                    id: tx.id,
+                  },
+                  {
+                    exchange: exchange.id,
+                  }
+                );
+
+                await strapi.services.log.info(
+                  `User ${exchange.user.accountNumber} withdrawn ${exchange.remainAmount} USDT from Exchange.`,
+                  exchange.user
+                );
+
+                strapi.services.notification.send(
+                  exchange.user.id,
+                  "Haladinar",
+                  `We sent ${exchange.remainAmount} USDT to your wallet.`
+                );
+              }
+            }
+          },
+          null,
+          async (error, receipt) => {
+            await strapi.services.exchange.update(
+              {
+                id: exchange.id,
+              },
+              {
+                remainAmount: savedAmount,
+              }
             );
-            if (tx) {
-              await strapi.services.transaction.update(
-                {
-                  id: tx.id
-                },
-                {
-                  exchange: exchange.id
-                }
-              );
-
-              await strapi.services.log.info(
-                `User ${exchange.user.accountNumber} withdrawn ${exchange.remainAmount} HDN from Exchange.`,
-                exchange.user
-              );
-
-              strapi.services.notification.send(
-                exchange.user.id,
-                "Haladinar",
-                `We sent ${exchange.remainAmount} HDN to your wallet.`
-              );
-            }
           }
-        },
-        null,
-        async (error, receipt) => {
-          await strapi.services.exchange.update(
-            {
-              id: exchange.id
-            },
-            {
-              remainAmount: savedAmount
-            }
-          );
-        }
-      );
+        );
 
-      return ctx.send({
-        id: exchange.id
-      });
+        return ctx.send({
+          id: exchange.id,
+        });
+      } catch (error) {
+        await strapi.services.exchange.update(
+          {
+            id: exchange.id,
+          },
+          {
+            remainAmount: savedAmount,
+          }
+        );
+        return ctx.badRequest(null, 'Failed to withdraw');
+      }
     } catch (err) {
       strapi.log.fatal(err);
-
       const adminError = err.message;
       ctx.badRequest(
         null,
         ctx.request.admin ? [{ messages: [{ id: adminError }] }] : err.message
       );
     }
-  }
+  },
 };

@@ -9,7 +9,7 @@ const QUARTER = 'Quarter';
 const YEAR = 'Year';
 
 const AlllEarnsCache = 'earns.all';
-const EarnByIdCache = 'earns.id-';
+const EarnByIdCache = 'earns.id:';
 
 module.exports = {
   DAY,

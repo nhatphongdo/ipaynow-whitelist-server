@@ -6,7 +6,7 @@ const _ = require("lodash");
 const { Cache } = require("../../../services/cache");
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const _loadCoinMarketCapQuotes = async (base, currencies, apiKey) => {
@@ -16,11 +16,11 @@ const _loadCoinMarketCapQuotes = async (base, currencies, apiKey) => {
       {
         params: {
           symbol: base,
-          convert: currencies
+          convert: currencies,
         },
         headers: {
-          "X-CMC_PRO_API_KEY": apiKey
-        }
+          "X-CMC_PRO_API_KEY": apiKey,
+        },
       }
     );
     if (response.data.status.error_code !== 0) {
@@ -50,24 +50,6 @@ const _saveCoinMarketCapQuotes = async (base, quote) => {
   }
 };
 
-const _loadFromIxx = async () => {
-  try {
-    const response = await Axios.get("https://q.ixex.io/v1/ticker/HDN_ETH");
-    if (response.data.code !== 0) {
-      // Error from IXX
-      return null;
-    }
-    return response.data;
-  } catch (err) {
-    if (err.response) {
-      console.log(err.response.data);
-    } else {
-      console.log(err);
-    }
-    return null;
-  }
-};
-
 module.exports = {
   updateRate: async (base, foreign, rate, source) => {
     if (!rate || !foreign || !rate) {
@@ -77,7 +59,7 @@ module.exports = {
     let records = await strapi.services.rate.find({
       baseCurrency: base.toLowerCase(),
       foreignCurrency: foreign.toLowerCase(),
-      source: source || ""
+      source: source || "",
     });
     if (records.length > 0) {
       // Update
@@ -92,7 +74,7 @@ module.exports = {
         baseCurrency: base.toLowerCase(),
         foreignCurrency: foreign.toLowerCase(),
         rate: rate,
-        source: source || ""
+        source: source || "",
       });
     }
   },
@@ -135,17 +117,6 @@ module.exports = {
         await _saveCoinMarketCapQuotes("ETH", quote.data.ETH.quote);
       }
     }
-
-    // Update HDN
-    const quote = await _loadFromIxx();
-    if (quote != null) {
-      await strapi.services.rate.updateRate(
-        "ETH",
-        "HDN",
-        1 / parseFloat(quote.data.current),
-        "CMC"
-      );
-    }
   },
 
   getRate: async (from, to, source = "CMC") => {
@@ -155,7 +126,7 @@ module.exports = {
 
     let rates = await Cache.get(strapi.models.rate.AllRatesCache);
     if (!rates) {
-      rates = (await strapi.services.rate.find()).map(item =>
+      rates = (await strapi.services.rate.find()).map((item) =>
         _.omit(item, ["id", "created_at"])
       );
       await Cache.set(strapi.models.rate.AllRatesCache, rates);
@@ -171,7 +142,7 @@ module.exports = {
     let rate = _.find(rates, {
       baseCurrency: from.toLowerCase(),
       foreignCurrency: to.toLowerCase(),
-      source: source
+      source: source,
     });
     if (rate) {
       return rate.rate;
@@ -179,7 +150,7 @@ module.exports = {
     rate = _.find(rates, {
       baseCurrency: to.toLowerCase(),
       foreignCurrency: from.toLowerCase(),
-      source: source
+      source: source,
     });
     if (rate) {
       return 1.0 / rate.rate;
@@ -189,12 +160,12 @@ module.exports = {
     let fromRate = _.find(rates, {
       baseCurrency: base,
       foreignCurrency: from.toLowerCase(),
-      source: source
+      source: source,
     });
     let toRate = _.find(rates, {
       baseCurrency: base,
       foreignCurrency: to.toLowerCase(),
-      source: source
+      source: source,
     });
     fromRate = fromRate ? fromRate.rate : null;
     toRate = toRate ? toRate.rate : null;
@@ -202,23 +173,23 @@ module.exports = {
       // For non-official supported currencies like REWARD / POINT
       const bases = _.map(
         _.uniqBy(rates, "baseCurrency"),
-        item => item.baseCurrency
+        (item) => item.baseCurrency
       );
       for (let baseCurrency of bases) {
         const fromCurrentToFrom = _.find(rates, {
           baseCurrency: baseCurrency,
           foreignCurrency: from.toLowerCase(),
-          source: source
+          source: source,
         });
         const fromCurrentToTo = _.find(rates, {
           baseCurrency: baseCurrency,
           foreignCurrency: to.toLowerCase(),
-          source: source
+          source: source,
         });
         const fromBaseToCurrent = _.find(rates, {
           baseCurrency: base,
           foreignCurrency: baseCurrency,
-          source: source
+          source: source,
         });
         if (
           fromBaseToCurrent &&
@@ -237,5 +208,5 @@ module.exports = {
       }
     }
     return toRate / fromRate;
-  }
+  },
 };

@@ -7,7 +7,7 @@ const LOSE = "Lose";
 const PLAYING = "Playing";
 
 const REWARD = "Reward";
-const HDN = "HDN";
+const USDT = "USDT";
 const PERCENT_OF_TOTAL_COST = "PercentOfTotalCost";
 
 const LUCKY_DRAW = "Lucky Draw";
@@ -25,7 +25,7 @@ module.exports = {
   PLAYING,
 
   REWARD,
-  HDN,
+  USDT,
   PERCENT_OF_TOTAL_COST,
 
   LUCKY_DRAW,
@@ -83,5 +83,5 @@ module.exports = {
   // Fired after a `delete` query.
   afterDestroy: async (model, attrs, options) => {
     await Cache.del(AllGamesCache);
-  }
+  },
 };

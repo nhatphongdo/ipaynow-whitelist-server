@@ -11,35 +11,35 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "approve",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -48,12 +48,12 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -62,12 +62,12 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint8"
-      }
+        type: "uint8",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -76,12 +76,12 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -90,105 +90,105 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint8"
-      }
+        type: "uint8",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "isReceiver",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         name: "addedValue",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "increaseAllowance",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
+        type: "address",
       },
       {
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "mint",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "burn",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "removeDistributor",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -197,54 +197,54 @@ const TOKEN_ABI = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "removeReceiver",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "addReceiver",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "balanceOf",
     outputs: [
       {
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -253,39 +253,39 @@ const TOKEN_ABI = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "addDistributor",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
+        type: "address",
       },
       {
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "burnFrom",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -294,31 +294,31 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "isDistributor",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -327,12 +327,12 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -341,26 +341,26 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "addMinter",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -369,7 +369,7 @@ const TOKEN_ABI = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -378,77 +378,77 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         name: "subtractedValue",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "decreaseAllowance",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
     inputs: [
       {
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "isMinter",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
     inputs: [
       {
         name: "owner",
-        type: "address"
+        type: "address",
       },
       {
         name: "spender",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "allowance",
     outputs: [
       {
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
@@ -457,21 +457,21 @@ const TOKEN_ABI = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "newOwner",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "transferOwnership",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -480,18 +480,18 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "string"
-      }
+        type: "string",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     inputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "constructor"
+    type: "constructor",
   },
   {
     anonymous: false,
@@ -499,11 +499,11 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "ReceiverAdded",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -511,11 +511,11 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "ReceiverRemoved",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -523,11 +523,11 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "DistributorAdded",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -535,11 +535,11 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "DistributorRemoved",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -547,11 +547,11 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "MinterAdded",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -559,11 +559,11 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "account",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "MinterRemoved",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -571,16 +571,16 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "previousOwner",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         name: "newOwner",
-        type: "address"
-      }
+        type: "address",
+      },
     ],
     name: "OwnershipTransferred",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -588,21 +588,21 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "from",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         name: "to",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "Transfer",
-    type: "event"
+    type: "event",
   },
   {
     anonymous: false,
@@ -610,40 +610,40 @@ const TOKEN_ABI = [
       {
         indexed: true,
         name: "owner",
-        type: "address"
+        type: "address",
       },
       {
         indexed: true,
         name: "spender",
-        type: "address"
+        type: "address",
       },
       {
         indexed: false,
         name: "value",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "Approval",
-    type: "event"
+    type: "event",
   },
   {
     constant: false,
     inputs: [
       {
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "issue",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: true,
@@ -652,95 +652,97 @@ const TOKEN_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     payable: false,
     stateMutability: "view",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "rate",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "setSplitRate",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "recipient",
-        type: "address"
+        type: "address",
       },
       {
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "transfer",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     constant: false,
     inputs: [
       {
         name: "sender",
-        type: "address"
+        type: "address",
       },
       {
         name: "recipient",
-        type: "address"
+        type: "address",
       },
       {
         name: "amount",
-        type: "uint256"
-      }
+        type: "uint256",
+      },
     ],
     name: "transferFrom",
     outputs: [
       {
         name: "",
-        type: "bool"
-      }
+        type: "bool",
+      },
     ],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
-  }
+    type: "function",
+  },
 ];
 
-const TestNet = false;
+const TestNet = true;
 const RetryPeriod = 15000; // 15 seconds
 
 const TOKEN_CONTRACT_ADDRESS = TestNet
-  ? "0x48881da3CF2a49cF4Be16A1806A599d93fC26b37"
-  : "0xfe73a07fa11ba0a8480159f405d35d0b55f826e8";
+  ? "0x168Ff259978c68b4C1C003259E6eFEC991bE2369"
+  : "0xdAC17F958D2ee523a2206206994597C13D831ec7";
 const TRANSFER_TOPIC =
   "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
 
-const InfuraProjectId = "64672f2c5bc941c283aa83a0a14f5cc7";
-const InfuraProjectSecret = "41191232f4fa4a0a92b91df84006f833";
+const TOKEN_DECIMAL_DIGITS = 8;
+
+const InfuraProjectId = "db45d8a58336480a8f37e0b7151a4b1e";
+const InfuraProjectSecret = "da101c0b4cfe4b109d7624c507b8fc59";
 const RpcProviderSocket = TestNet
   ? `wss://ropsten.infura.io/ws/v3/${InfuraProjectId}`
   : `wss://mainnet.infura.io/ws/v3/${InfuraProjectId}`;
@@ -752,11 +754,11 @@ const web3Socket = new Web3(
   new Web3.providers.WebsocketProvider(RpcProviderSocket),
   null,
   {
-    transactionConfirmationBlocks: 5
+    transactionConfirmationBlocks: 5,
   }
 );
 const web3Http = new Web3(RpcProviderHttp, null, {
-  transactionConfirmationBlocks: 5
+  transactionConfirmationBlocks: 5,
 });
 
 module.exports = () => {
@@ -777,10 +779,10 @@ module.exports = () => {
     fromWei: web3Socket.utils.fromWei,
     unitMap: web3Socket.utils.unitMap,
     toChecksumAddress: web3Socket.utils.toChecksumAddress,
-    hexToAddress: hex => {
+    hexToAddress: (hex) => {
       let array = web3Socket.utils.hexToBytes(hex);
-      // Get last 40 bytes
-      array = _.takeRight(array, 40);
+      // Get last 20 bytes
+      array = _.takeRight(array, 20);
       return web3Socket.utils.bytesToHex(array);
     },
 
@@ -817,15 +819,15 @@ module.exports = () => {
       return await web3Http.eth.getBlockNumber();
     },
 
-    getTransaction: async txHash => {
+    getTransaction: async (txHash) => {
       return await web3Http.eth.getTransaction(txHash);
     },
 
-    getTransactionReceipt: async txHash => {
+    getTransactionReceipt: async (txHash) => {
       return await web3Http.eth.getTransactionReceipt(txHash);
     },
 
-    getConfirmations: async txHash => {
+    getConfirmations: async (txHash) => {
       try {
         // Get transaction details
         const trx = await eth.getTransaction(txHash);
@@ -860,6 +862,30 @@ module.exports = () => {
           return true;
         }
         if (tx.to && tx.to.toLowerCase() === addresses[i].toLowerCase()) {
+          return true;
+        }
+      }
+      return false;
+    },
+
+    validateTokenTransaction: (tx, addresses) => {
+      if (!tx) {
+        return false;
+      }
+      if (!addresses) {
+        return true;
+      }
+      for (let i = 0; i < addresses.length; i++) {
+        if (
+          tx.returnValues.from &&
+          tx.returnValues.from.toLowerCase() === addresses[i].toLowerCase()
+        ) {
+          return true;
+        }
+        if (
+          tx.returnValues.to &&
+          tx.returnValues.to.toLowerCase() === addresses[i].toLowerCase()
+        ) {
           return true;
         }
       }
@@ -917,14 +943,14 @@ module.exports = () => {
             console.log("Listen for pending transactions ETH", result.number);
           }
         })
-        .on("data", async data => {
+        .on("data", async (data) => {
           try {
             if (!data.number || data.number < 6) {
               return;
             }
             var block = await eth.getBlock(data.number - 5, true);
             if (block !== null && block.transactions !== null) {
-              block.transactions.forEach(tx => {
+              block.transactions.forEach((tx) => {
                 if (!eth.validateEthTransaction(tx, addresses)) {
                   return;
                 }
@@ -967,7 +993,7 @@ module.exports = () => {
         var block = await eth.getBlock(i, true);
         var found = false;
         if (block !== null && block.transactions !== null) {
-          block.transactions.forEach(tx => {
+          block.transactions.forEach((tx) => {
             if (!eth.validateEthTransaction(tx, addresses)) {
               return;
             }
@@ -995,11 +1021,11 @@ module.exports = () => {
       );
     },
 
-    watchTokenTransfers: (fromBlock, callback) => {
+    watchTokenTransfers: (fromBlock, addresses, callback) => {
       // Subscribe to Transfer events matching filter criteria
       eth.tokenContract.events.Transfer(
         {
-          fromBlock: "latest"
+          fromBlock: "latest",
         },
         async (error, event) => {
           if (error) {
@@ -1011,6 +1037,9 @@ module.exports = () => {
             return;
           }
 
+          if (!eth.validateTokenTransaction(event, addresses)) {
+            return;
+          }
           if (callback) {
             callback(event);
           }
@@ -1021,7 +1050,7 @@ module.exports = () => {
       eth.tokenContract.getPastEvents(
         "Transfer",
         {
-          fromBlock
+          fromBlock,
         },
         async (error, logs) => {
           if (error) {
@@ -1033,7 +1062,10 @@ module.exports = () => {
           }
 
           if (logs) {
-            logs.forEach(event => {
+            logs.forEach((event) => {
+              if (!eth.validateTokenTransaction(event, addresses)) {
+                return;
+              }
               if (callback) {
                 callback(event);
               }
@@ -1057,13 +1089,12 @@ module.exports = () => {
       return await web3Socket.eth.accounts.recover(message, signature);
     },
 
-    getAccount: privateKey => {
+    getAccount: (privateKey) => {
       if (eth.accounts[privateKey]) {
         return eth.accounts[privateKey];
       } else {
-        eth.accounts[privateKey] = web3Socket.eth.accounts.wallet.add(
-          privateKey
-        );
+        eth.accounts[privateKey] =
+          web3Socket.eth.accounts.wallet.add(privateKey);
         return eth.accounts[privateKey];
       }
     },
@@ -1077,11 +1108,12 @@ module.exports = () => {
       confirmationCallback,
       errorCallback
     ) => {
-      amount = eth.toWei(amount.toString());
+      amount = eth.toWei(amount.toString(), "gwei");
+      amount = amount.substr(0, amount.length - 1);
       const gas = await eth.tokenContract.methods
         .transfer(toAddress, amount)
         .estimateGas({
-          from: account.address
+          from: account.address,
         });
       const gasPrice = await web3Http.eth.getGasPrice();
       let count = await web3Http.eth.getTransactionCount(account.address);
@@ -1101,7 +1133,7 @@ module.exports = () => {
         gasLimit: gas,
         data: data,
         nonce: web3Socket.utils.toHex(count),
-        chainId: TestNet ? 0x03 : 0x01
+        chainId: TestNet ? 0x03 : 0x01,
       });
       var privateKey = Buffer.from(
         web3Socket.utils.hexToBytes(account.privateKey)
@@ -1110,12 +1142,12 @@ module.exports = () => {
 
       await web3Socket.eth
         .sendSignedTransaction("0x" + transaction.serialize().toString("hex"))
-        .on("transactionHash", hash => {
+        .on("transactionHash", (hash) => {
           if (transactionCallback) {
             transactionCallback(hash);
           }
         })
-        .on("receipt", receipt => {
+        .on("receipt", (receipt) => {
           if (receiptCallback) {
             receiptCallback(receipt);
           }
@@ -1137,10 +1169,10 @@ module.exports = () => {
         });
     },
 
-    getTokenBalance: async address => {
+    getTokenBalance: async (address) => {
       const result = await eth.tokenContract.methods.balanceOf(address).call();
       return eth.fromWei(eth.toBN(result));
-    }
+    },
   };
 
   return eth;

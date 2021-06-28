@@ -316,7 +316,7 @@ module.exports = {
       _.forEach(interests, (item) => {
         result.push({
           amount: item.amount,
-          unit: "HDN",
+          unit: "USDT",
           type: "Daily Interest",
           txHash: "Interest_" + item.id.toString(),
           createdOn: item.created_at,

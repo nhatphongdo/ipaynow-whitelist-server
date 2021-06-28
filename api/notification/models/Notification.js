@@ -2,7 +2,7 @@
 
 const { Cache } = require('../../../services/cache');
 
-const NotificationByUserCache = 'notifications.user-';
+const NotificationByUserCache = 'notifications.user:';
 
 module.exports = {
   NotificationByUserCache,

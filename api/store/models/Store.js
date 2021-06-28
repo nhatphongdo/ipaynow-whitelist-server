@@ -5,14 +5,14 @@ const { Cache } = require("../../../services/cache");
 const AllStoresCache = "stores.all";
 
 const REWARD = "Reward";
-const HDN = "HDN";
+const USDT = "USDT";
 
 const SPECIAL_FORMAT = "Special Format";
 const MEMBERSHIP = "Membership";
 
 module.exports = {
   REWARD,
-  HDN,
+  USDT,
 
   SPECIAL_FORMAT,
   MEMBERSHIP,
@@ -69,5 +69,5 @@ module.exports = {
   // Fired after a `delete` query.
   afterDestroy: async (model, attrs, options) => {
     await Cache.del(AllStoresCache);
-  }
+  },
 };

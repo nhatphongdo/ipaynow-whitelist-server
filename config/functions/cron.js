@@ -71,8 +71,8 @@ module.exports = {
   "0 */24 * * *": async () => {
     // Every 24 hours from 00:00
     // Process daily interest
-    strapi.services.interest.processDailyInterest();
+    // strapi.services.interest.processDailyInterest();
     // Process expired membership
-    strapi.services.account.processMembership();
+    // strapi.services.account.processMembership();
   }
 };

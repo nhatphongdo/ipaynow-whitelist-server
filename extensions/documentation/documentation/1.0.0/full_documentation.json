@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/24/2021 11:55:09 PM"
+    "x-generation-date": "06/28/2021 5:05:03 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12351,7 +12351,7 @@
             "default": "Reward",
             "enum": [
               "Reward",
-              "HDN"
+              "USDT"
             ]
           },
           "store": {
@@ -12763,7 +12763,7 @@
             "default": "Reward",
             "enum": [
               "Reward",
-              "HDN"
+              "USDT"
             ]
           },
           "store": {
@@ -13382,7 +13382,7 @@
             "default": "Reward",
             "enum": [
               "Reward",
-              "HDN"
+              "USDT"
             ]
           },
           "type": {
@@ -13535,7 +13535,7 @@
             "default": "Reward",
             "enum": [
               "Reward",
-              "HDN"
+              "USDT"
             ]
           },
           "type": {

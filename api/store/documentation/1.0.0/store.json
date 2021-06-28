@@ -369,7 +369,7 @@
             "default": "Reward",
             "enum": [
               "Reward",
-              "HDN"
+              "USDT"
             ]
           },
           "type": {
@@ -522,7 +522,7 @@
             "default": "Reward",
             "enum": [
               "Reward",
-              "HDN"
+              "USDT"
             ]
           },
           "type": {

@@ -16,8 +16,9 @@ const GAME_PRIZE = 'Game Prize';
 const GAME_SPENT = 'Game Spent';
 const BUY_STORE_ITEM = 'Buy Store Item';
 
-const RewardsByUser = 'rewards.user-';
-const RewardBalanceByUser = 'rewards.balance.user-';
+const RewardsByUser = 'rewards.user:';
+const RewardBalanceByUser = 'rewards.balance:user:';
+const LockBalanceByUser = "rewards.lock-balance.user:";
 
 module.exports = {
   UNKNOWN,
@@ -36,6 +37,7 @@ module.exports = {
 
   RewardsByUser,
   RewardBalanceByUser,
+  LockBalanceByUser,
 
   // Before saving a value.
   // Fired before an `insert` or `update` query.
@@ -46,6 +48,7 @@ module.exports = {
   afterSave: async (model, response, options) => {
     await Cache.del(RewardsByUser + (model.attributes.user || ''));
     await Cache.del(RewardBalanceByUser + (model.attributes.user || ''));
+    await Cache.del(LockBalanceByUser + (model.attributes.user || ""));
 
     if (strapi.socket && model.attributes.user) {
       strapi.socket.emitToUser(model.attributes.user, 'wallet_updated');
@@ -93,6 +96,7 @@ module.exports = {
   afterDestroy: async (model, attrs, options) => {
     await Cache.del(RewardsByUser + (model.attributes.user || ''));
     await Cache.del(RewardBalanceByUser + (model.attributes.user || ''));
+    await Cache.del(LockBalanceByUser + (model.attributes.user || ""));
 
     if (strapi.socket && model.attributes.user) {
       strapi.socket.emitToUser(model.attributes.user, 'wallet_updated');

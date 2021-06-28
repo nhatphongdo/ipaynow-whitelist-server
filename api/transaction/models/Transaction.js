@@ -15,7 +15,7 @@ const FAILED = "Failed";
 const PENDING = "Pending";
 
 const ETH = "ETH";
-const HDN = "HDN";
+const USDT = "USDT";
 const REWARD = "REWARD";
 
 /**
@@ -38,8 +38,8 @@ module.exports = {
   PENDING,
 
   ETH,
-  HDN,
-  REWARD
+  USDT,
+  REWARD,
 
   // Before saving a value.
   // Fired before an `insert` or `update` query.

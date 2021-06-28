@@ -5,7 +5,7 @@ const _ = require("lodash");
 const { Cache } = require("../../../services/cache");
 
 module.exports = {
-  getRewardBalanceByUser: async userId => {
+  getRewardBalanceByUser: async (userId) => {
     let rewardBalance = await Cache.get(
       strapi.models.reward.RewardBalanceByUser + userId
     );
@@ -27,13 +27,35 @@ module.exports = {
     return rewardBalance;
   },
 
+  getLockBalanceByUser: async (userId) => {
+    let lockBalance = await Cache.get(
+      strapi.models.reward.LockBalanceByUser + userId
+    );
+    if (!lockBalance) {
+      lockBalance =
+        _.head(
+          await strapi.models.lock
+            .query()
+            .where({ user: userId })
+            .sum({ balance: "amount" })
+            .select()
+        ).balance || 0;
+      await Cache.set(
+        strapi.models.reward.LockBalanceByUser + userId,
+        lockBalance
+      );
+    }
+
+    return lockBalance;
+  },
+
   processEarnLocks: async () => {
     // Get locks past completed
     const locks = (
       await strapi.models.lock
-        .query(qb => {
+        .query((qb) => {
           qb.where("returned", false)
-            .andWhere(function() {
+            .andWhere(function () {
               this.where("endedOn", "<=", new Date()).orWhereNull(
                 "finished",
                 true
@@ -44,13 +66,13 @@ module.exports = {
         .fetchAll({ withRelated: ["user"] })
     ).toJSON();
 
-    _.forEach(locks, async lock => {
+    _.forEach(locks, async (lock) => {
       try {
         // Check if reward already is issued
         let reward = _.head(
           await strapi.services.reward.find({
             lock: lock.id,
-            type: strapi.models.reward.EARN_UNLOCKED
+            type: strapi.models.reward.EARN_UNLOCKED,
           })
         );
 
@@ -59,7 +81,7 @@ module.exports = {
             lock: lock.id,
             type: strapi.models.reward.EARN_UNLOCKED,
             amount: lock.amount,
-            user: lock.user.id
+            user: lock.user.id,
           });
 
           await strapi.services.log.info(
@@ -71,7 +93,7 @@ module.exports = {
         reward = _.head(
           await strapi.services.reward.find({
             lock: lock.id,
-            type: strapi.models.reward.EARN_INTEREST
+            type: strapi.models.reward.EARN_INTEREST,
           })
         );
 
@@ -80,32 +102,31 @@ module.exports = {
             lock: lock.id,
             type: strapi.models.reward.EARN_INTEREST,
             amount: lock.amount * lock.interestRate,
-            user: lock.user.id
+            user: lock.user.id,
           });
 
           await strapi.services.log.info(
-            `User ${lock.user.accountNumber} receives ${lock.amount *
-              lock.interestRate} Reward as interest rate from lock #${
-              lock.id
-            }.`,
+            `User ${lock.user.accountNumber} receives ${
+              lock.amount * lock.interestRate
+            } Reward as interest rate from lock #${lock.id}.`,
             lock.user
           );
         }
 
         await strapi.services.lock.update(
           {
-            id: lock.id
+            id: lock.id,
           },
           {
             finished: true,
             returnAmount: lock.amount * (1 + lock.interestRate),
             returned: true,
-            returnedOn: new Date()
+            returnedOn: new Date(),
           }
         );
       } catch (err) {
         strapi.log.fatal(err);
       }
     });
-  }
+  },
 };

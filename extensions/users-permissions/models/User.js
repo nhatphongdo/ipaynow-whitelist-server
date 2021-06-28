@@ -2,10 +2,10 @@
 
 const { Cache } = require("../../../services/cache");
 
-const MerchantsCache = "users.merchants.all-";
-const UserByIdCache = "users.id-";
-const UserByAccountNumberCache = "users.account-number-";
-const UserByWalletAddressCache = "users.wallet-address-";
+const MerchantsCache = "users.merchants.all:";
+const UserByIdCache = "users.id:";
+const UserByAccountNumberCache = "users.account-number:";
+const UserByWalletAddressCache = "users.wallet-address:";
 
 /**
  * Lifecycle callbacks for the `User` model.

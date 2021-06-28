@@ -2,7 +2,7 @@
 
 const { Cache } = require("../../../services/cache");
 
-const HDN = "HDN";
+const USDT = "USDT";
 
 const BUY = "Buy";
 const SELL = "Sell";
@@ -17,7 +17,7 @@ const ETHEREUM = "Ethereum";
 const AllExchangesCache = "exchanges.all";
 
 module.exports = {
-  HDN,
+  USDT,
 
   BUY,
   SELL,
@@ -81,5 +81,5 @@ module.exports = {
   // Fired after a `delete` query.
   afterDestroy: async (model, attrs, options) => {
     await Cache.del(AllExchangesCache);
-  }
+  },
 };

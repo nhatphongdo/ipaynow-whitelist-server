@@ -221,7 +221,7 @@ module.exports = {
         return ctx.badRequest(null, "Request is not valid");
       }
 
-      if (purchase.unit === strapi.models.store.HDN) {
+      if (purchase.unit === strapi.models.store.USDT) {
         if (!message.txHash) {
           purchase.store = purchase.store.id;
           purchase.enabled = false;
@@ -229,7 +229,7 @@ module.exports = {
           return ctx.badRequest(null, "Missing `txHash` parameter.");
         }
         const transactions = await strapi.services.transaction.find({
-          transactionHash: message.txHash.toLowerCase()
+          transactionHash: message.txHash.toLowerCase(),
         });
         if (transactions.length === 0) {
           purchase.store = purchase.store.id;
@@ -245,7 +245,7 @@ module.exports = {
           )) || "";
         if (
           transactions[0].toAddress !== storeWallet.toLowerCase() ||
-          transactions[0].unit !== strapi.models.transaction.HDN ||
+          transactions[0].unit !== strapi.models.transaction.USDT ||
           numeral(transactions[0].amount).value() < purchase.total ||
           transactions[0].processed === true ||
           transactions[0].purchase
@@ -269,15 +269,13 @@ module.exports = {
         purchase.status = strapi.models.purchase.COMPLETED;
         await strapi.services.transaction.update(
           {
-            id: transactions[0].id
+            id: transactions[0].id,
           },
           {
             processed: true,
-            processedOn: moment()
-              .utc()
-              .toDate(),
+            processedOn: moment().utc().toDate(),
             processedNote: `This transaction is processed with Purchase #${purchase.id}.`,
-            purchase: purchase.id
+            purchase: purchase.id,
           }
         );
       } else if (purchase.unit === strapi.models.store.REWARD) {
@@ -296,7 +294,7 @@ module.exports = {
           amount: -purchase.total,
           type: strapi.models.reward.BUY_STORE_ITEM,
           user: ctx.state.user.id,
-          purchase: purchase.id
+          purchase: purchase.id,
         });
         purchase.reward = reward.id;
         purchase.status = strapi.models.purchase.COMPLETED;

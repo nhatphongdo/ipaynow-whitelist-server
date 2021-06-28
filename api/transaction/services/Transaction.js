@@ -51,7 +51,7 @@ module.exports = {
     if (amount) params.amount = amount.toString();
     params.unit = isEth
       ? strapi.models.transaction.ETH
-      : strapi.models.transaction.HDN;
+      : strapi.models.transaction.USDT;
     params.status =
       status === true
         ? strapi.models.transaction.SUCCESS
@@ -123,7 +123,7 @@ module.exports = {
         //   data: {
         //     "transaction_id": params.transactionHash,
         //     "amount": params.amount,
-        //     "currency": "HDN",
+        //     "currency": "USDT",
         //     "status": "succeeded",
         //     "details": "Payment complete.",
         //     "success": true
@@ -199,7 +199,7 @@ module.exports = {
     }
     if (
       tx.type !== strapi.models.transaction.BUY_REWARD &&
-      tx.unit !== strapi.models.transaction.HDN
+      tx.unit !== strapi.models.transaction.USDT
     ) {
       return;
     }
@@ -253,11 +253,12 @@ module.exports = {
     if (isNaN(ratio)) {
       ratio = 1;
     }
+
     const rate = await strapi.services.rate.getRate(
-      strapi.models.transaction.HDN,
+      strapi.models.transaction.USDT,
       strapi.models.transaction.REWARD
     );
-
+    console.log(rate)
     reward = await strapi.services.reward.create({
       amount: tx.amount * rate * ratio,
       type: strapi.models.reward.DEPOSIT,
@@ -273,8 +274,8 @@ module.exports = {
 
     await strapi.services.log.info(
       `User ${sender.accountNumber} buys ${tx.amount * ratio} Reward with ${
-      tx.amount
-      } HDN.`,
+        tx.amount
+      } USDT.`,
       sender
     );
   },
@@ -420,7 +421,7 @@ module.exports = {
 
         await strapi.services.log.info(
           `User ${sender.accountNumber} receives ${total *
-          ratio} Reward as rebate of sending ${total} HDN.`,
+          ratio} Reward as rebate of sending ${total} USDT.`,
           sender
         );
       } else if (tx.type === strapi.models.transaction.SPLIT_TRANSFER) {
@@ -471,7 +472,7 @@ module.exports = {
           `User ${
           receiver ? receiver.accountNumber : receiverAddress
           } receives ${tx.amount *
-          ratio} Reward as split of receiving ${total} HDN from ${
+          ratio} Reward as split of receiving ${total} USDT from ${
           sender.accountNumber
           }.`,
           receiver
@@ -544,10 +545,11 @@ module.exports = {
             transaction: tx.id
           });
           await strapi.services.log.info(
-            `User ${sender.father.accountNumber} receives ${(amount ||
-              tx.amount) *
-            ratio} Reward as referral bonus (level 1) for sending of ${amount ||
-            tx.amount} HDN from user ${sender.accountNumber}.`,
+            `User ${sender.father.accountNumber} receives ${
+              (amount || tx.amount) * ratio
+            } Reward as referral bonus (level 1) for sending of ${
+              amount || tx.amount
+            } USDT from user ${sender.accountNumber}.`,
             sender.father
           );
         }
@@ -588,10 +590,11 @@ module.exports = {
             transaction: tx.id
           });
           await strapi.services.log.info(
-            `User ${sender.grandFather.accountNumber} receives ${(amount ||
-              tx.amount) *
-            ratio} Reward as referral bonus (level 2) for sending of ${amount ||
-            tx.amount} HDN from user ${sender.accountNumber}.`,
+            `User ${sender.grandFather.accountNumber} receives ${
+              (amount || tx.amount) * ratio
+            } Reward as referral bonus (level 2) for sending of ${
+              amount || tx.amount
+            } USDT from user ${sender.accountNumber}.`,
             sender.grandFather
           );
         }
@@ -620,12 +623,12 @@ module.exports = {
       return;
     }
 
-    // Send HDN corresponding to ETH
+    // Send USDT corresponding to ETH
     const rate = await strapi.services.rate.getRate(
       strapi.models.transaction.ETH,
-      strapi.models.transaction.HDN
+      strapi.models.transaction.USDT
     );
-    const hdn = rate * tx.amount;
+    const usdt = rate * tx.amount;
     try {
       const account = eth.getAccount(
         await strapi.services.setting.getSetting(
@@ -640,7 +643,7 @@ module.exports = {
       await eth.sendToken(
         account,
         tx.fromAddress,
-        hdn,
+        usdt,
         null,
         async receipt => {
           if (receipt.status) {
@@ -654,7 +657,7 @@ module.exports = {
               .query("user", "users-permissions")
               .findOne({ id: tx.sender });
             await strapi.services.log.info(
-              `User ${sender.accountNumber} deposits ${hdn} HDN with ${tx.amount} ETH.`,
+              `User ${sender.accountNumber} deposits ${usdt} USDT with ${tx.amount} ETH.`,
               sender
             );
           } else {
@@ -682,20 +685,20 @@ module.exports = {
     if (tx.type === strapi.models.transaction.BUY_REWARD) {
       strapi.services.transaction.processBuyRewardTransaction(tx);
     } else if (tx.type === strapi.models.transaction.TRANSFER) {
-      // Find all sub-items of this hash
-      const transactions = await strapi.services.transaction.find({
-        transactionHash: tx.transactionHash.toLowerCase()
-      });
-      if (transactions.length > 1) {
-        // This is split transfer
-        strapi.services.transaction.processSplitTransaction(transactions);
-      }
+      // // Find all sub-items of this hash
+      // const transactions = await strapi.services.transaction.find({
+      //   transactionHash: tx.transactionHash.toLowerCase()
+      // });
+      // if (transactions.length > 1) {
+      //   // This is split transfer
+      //   strapi.services.transaction.processSplitTransaction(transactions);
+      // }
 
-      // Process referral
-      strapi.services.transaction.processReferral(
-        tx,
-        _.sumBy(transactions, tx => numeral(tx.amount).value())
-      );
+      // // Process referral
+      // strapi.services.transaction.processReferral(
+      //   tx,
+      //   _.sumBy(transactions, tx => numeral(tx.amount).value())
+      // );
     } else if (tx.type === strapi.models.transaction.DEPOSIT) {
       strapi.services.transaction.processDeposit(tx);
     }
@@ -722,7 +725,7 @@ module.exports = {
             strapi.models.transaction.SPLIT_TRANSFER
           );
         })
-        .andWhere("unit", strapi.models.transaction.HDN)
+        .andWhere("unit", strapi.models.transaction.USDT)
         .groupBy("transactionHash") // transaction group which has more than 1 item is split transfer
         .havingRaw("COUNT(*) > 1")
         .select("transactionHash")
