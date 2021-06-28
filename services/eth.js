@@ -730,7 +730,7 @@ const TOKEN_ABI = [
   },
 ];
 
-const TestNet = true;
+const TestNet = process.env.TEST_NET === 'false' ? false : true;
 const RetryPeriod = 15000; // 15 seconds
 
 const TOKEN_CONTRACT_ADDRESS = TestNet
