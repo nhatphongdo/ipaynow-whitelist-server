@@ -26,7 +26,7 @@ module.exports = {
       {
         fromAddress: from.toLowerCase(),
         toAddress: to.toLowerCase(),
-        transactionHash: txHash.toLowerCase()
+        transactionHash: txHash.toLowerCase(),
       },
       []
     );
@@ -56,8 +56,8 @@ module.exports = {
       status === true
         ? strapi.models.transaction.SUCCESS
         : status === false
-          ? strapi.models.transaction.FAILED
-          : strapi.models.transaction.PENDING;
+        ? strapi.models.transaction.FAILED
+        : strapi.models.transaction.PENDING;
     if (receipt) params.blockchainReceipt = receipt;
 
     // Process the type
@@ -155,12 +155,12 @@ module.exports = {
       let transactions = await strapi.services.transaction.find(
         {
           status: strapi.models.transaction.PENDING,
-          _limit: 300 // Limit 300 transactions every 5 minutes
+          _limit: 300, // Limit 300 transactions every 5 minutes
         },
         []
       );
 
-      _.forEach(transactions, async tx => {
+      _.forEach(transactions, async (tx) => {
         currentTime = new Date().getTime();
         if (
           startTime &&
@@ -190,7 +190,7 @@ module.exports = {
     }
   },
 
-  processBuyRewardTransaction: async tx => {
+  processBuyRewardTransaction: async (tx) => {
     if (
       tx.status !== strapi.models.transaction.SUCCESS ||
       !tx.blockchainReceipt
@@ -258,12 +258,11 @@ module.exports = {
       strapi.models.transaction.USDT,
       strapi.models.transaction.REWARD
     );
-    console.log(rate)
     reward = await strapi.services.reward.create({
       amount: tx.amount * rate * ratio,
       type: strapi.models.reward.DEPOSIT,
       user: sender.id,
-      transaction: tx.id
+      transaction: tx.id,
     });
 
     tx.processed = true;
@@ -280,227 +279,227 @@ module.exports = {
     );
   },
 
-  processSplitTransaction: async txs => {
-    if (txs.length <= 1) {
-      return;
-    }
-    if (
-      !_.some(txs, { type: strapi.models.transaction.SPLIT_TRANSFER }) ||
-      !_.some(txs, { type: strapi.models.transaction.TRANSFER })
-    ) {
-      // No split transfer and transfer
-      return;
-    }
-    if (
-      !_.every(
-        txs,
-        item =>
-          item.status === strapi.models.transaction.SUCCESS &&
-          item.blockchainReceipt &&
-          item.blockchainReceipt.logs.length > 1
-      )
-    ) {
-      return;
-    }
-    if (!_.every(txs, { fromAddress: txs[0].fromAddress })) {
-      return;
-    }
+  // processSplitTransaction: async txs => {
+  //   if (txs.length <= 1) {
+  //     return;
+  //   }
+  //   if (
+  //     !_.some(txs, { type: strapi.models.transaction.SPLIT_TRANSFER }) ||
+  //     !_.some(txs, { type: strapi.models.transaction.TRANSFER })
+  //   ) {
+  //     // No split transfer and transfer
+  //     return;
+  //   }
+  //   if (
+  //     !_.every(
+  //       txs,
+  //       item =>
+  //         item.status === strapi.models.transaction.SUCCESS &&
+  //         item.blockchainReceipt &&
+  //         item.blockchainReceipt.logs.length > 1
+  //     )
+  //   ) {
+  //     return;
+  //   }
+  //   if (!_.every(txs, { fromAddress: txs[0].fromAddress })) {
+  //     return;
+  //   }
 
-    if (txs[0].blockchainReceipt.status !== true) {
-      // Transaction failed then update record and ignore
-      _.each(txs, async tx => {
-        tx.status = strapi.models.transaction.FAILED;
-        tx.processed = true;
-        tx.processedOn = new Date();
-        tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
-        tx.receiver = tx.receiver ? tx.receiver.id || tx.receiver : null;
-        await strapi.services.transaction.update({ id: tx.id }, tx);
-      });
-      return;
-    }
+  //   if (txs[0].blockchainReceipt.status !== true) {
+  //     // Transaction failed then update record and ignore
+  //     _.each(txs, async tx => {
+  //       tx.status = strapi.models.transaction.FAILED;
+  //       tx.processed = true;
+  //       tx.processedOn = new Date();
+  //       tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
+  //       tx.receiver = tx.receiver ? tx.receiver.id || tx.receiver : null;
+  //       await strapi.services.transaction.update({ id: tx.id }, tx);
+  //     });
+  //     return;
+  //   }
 
-    let sender = _.get(
-      _.find(
-        txs,
-        item => item.type === strapi.models.transaction.TRANSFER && item.sender
-      ),
-      "sender"
-    );
-    if (sender && !sender.id) {
-      // sender is a number, get from database
-      sender = await strapi
-        .query("user", "users-permissions")
-        .findOne({ id: sender }, []);
-    }
-    if (!sender) {
-      _.each(txs, async tx => {
-        tx.processed = true;
-        tx.processedOn = new Date();
-        tx.processedNote = "This transaction does not have attached Sender.";
-        tx.receiver = tx.receiver ? tx.receiver.id || tx.receiver : null;
-        await strapi.services.transaction.update({ id: tx.id }, tx);
-      });
-      return;
-    }
+  //   let sender = _.get(
+  //     _.find(
+  //       txs,
+  //       item => item.type === strapi.models.transaction.TRANSFER && item.sender
+  //     ),
+  //     "sender"
+  //   );
+  //   if (sender && !sender.id) {
+  //     // sender is a number, get from database
+  //     sender = await strapi
+  //       .query("user", "users-permissions")
+  //       .findOne({ id: sender }, []);
+  //   }
+  //   if (!sender) {
+  //     _.each(txs, async tx => {
+  //       tx.processed = true;
+  //       tx.processedOn = new Date();
+  //       tx.processedNote = "This transaction does not have attached Sender.";
+  //       tx.receiver = tx.receiver ? tx.receiver.id || tx.receiver : null;
+  //       await strapi.services.transaction.update({ id: tx.id }, tx);
+  //     });
+  //     return;
+  //   }
 
-    let receiver = _.get(
-      _.find(
-        txs,
-        item =>
-          item.type === strapi.models.transaction.TRANSFER && item.receiver
-      ),
-      "receiver"
-    );
-    if (receiver && !receiver.id) {
-      // receiver is a number, get from database
-      receiver = await strapi
-        .query("user", "users-permissions")
-        .findOne({ id: receiver }, []);
-    }
+  //   let receiver = _.get(
+  //     _.find(
+  //       txs,
+  //       item =>
+  //         item.type === strapi.models.transaction.TRANSFER && item.receiver
+  //     ),
+  //     "receiver"
+  //   );
+  //   if (receiver && !receiver.id) {
+  //     // receiver is a number, get from database
+  //     receiver = await strapi
+  //       .query("user", "users-permissions")
+  //       .findOne({ id: receiver }, []);
+  //   }
 
-    // Get total transfer
-    const total = _.sumBy(txs, tx => numeral(tx.amount).value());
+  //   // Get total transfer
+  //   const total = _.sumBy(txs, tx => numeral(tx.amount).value());
 
-    let receiverAddress = null;
-    let reward = null;
-    let splitReward = null;
-    _.forEach(txs, async tx => {
-      if (tx.type === strapi.models.transaction.TRANSFER) {
-        // Get receiver
-        if (!receiver) {
-          receiver = await strapi
-            .query("user", "users-permissions")
-            .findOne({ walletAddress: tx.toAddress.toLowerCase() }, []);
-        }
-        if (!receiverAddress) {
-          receiverAddress = tx.toAddress;
-        }
+  //   let receiverAddress = null;
+  //   let reward = null;
+  //   let splitReward = null;
+  //   _.forEach(txs, async tx => {
+  //     if (tx.type === strapi.models.transaction.TRANSFER) {
+  //       // Get receiver
+  //       if (!receiver) {
+  //         receiver = await strapi
+  //           .query("user", "users-permissions")
+  //           .findOne({ walletAddress: tx.toAddress.toLowerCase() }, []);
+  //       }
+  //       if (!receiverAddress) {
+  //         receiverAddress = tx.toAddress;
+  //       }
 
-        // Check if we already added reward for this transaction
-        reward =
-          reward ||
-          _.head(
-            await strapi.services.reward.find({
-              transaction: tx.id,
-              type: strapi.models.reward.SENT_REBATE
-            })
-          );
+  //       // Check if we already added reward for this transaction
+  //       reward =
+  //         reward ||
+  //         _.head(
+  //           await strapi.services.reward.find({
+  //             transaction: tx.id,
+  //             type: strapi.models.reward.SENT_REBATE
+  //           })
+  //         );
 
-        if (reward) {
-          tx.processed = true;
-          tx.processedOn = new Date();
-          tx.processedNote = `This transaction is already processed with Reward #${reward.id}.`;
-          tx.sender = sender.id;
-          tx.receiver = receiver ? receiver.id : null;
-          await strapi.services.transaction.update({ id: tx.id }, tx);
-          return;
-        }
+  //       if (reward) {
+  //         tx.processed = true;
+  //         tx.processedOn = new Date();
+  //         tx.processedNote = `This transaction is already processed with Reward #${reward.id}.`;
+  //         tx.sender = sender.id;
+  //         tx.receiver = receiver ? receiver.id : null;
+  //         await strapi.services.transaction.update({ id: tx.id }, tx);
+  //         return;
+  //       }
 
-        let ratio =
-          (await strapi.services.setting.getSetting(
-            strapi.models.setting.RewardRebateRateSetting
-          )) || "0.8";
-        ratio = parseFloat(ratio);
-        if (isNaN(ratio)) {
-          ratio = 0.8;
-        }
+  //       let ratio =
+  //         (await strapi.services.setting.getSetting(
+  //           strapi.models.setting.RewardRebateRateSetting
+  //         )) || "0.8";
+  //       ratio = parseFloat(ratio);
+  //       if (isNaN(ratio)) {
+  //         ratio = 0.8;
+  //       }
 
-        reward = await strapi.services.reward.create({
-          amount: total * ratio,
-          type: strapi.models.reward.SENT_REBATE,
-          user: sender.id,
-          transaction: tx.id
-        });
+  //       reward = await strapi.services.reward.create({
+  //         amount: total * ratio,
+  //         type: strapi.models.reward.SENT_REBATE,
+  //         user: sender.id,
+  //         transaction: tx.id
+  //       });
 
-        tx.processed = true;
-        tx.processedOn = new Date();
-        tx.processedNote = `This transaction is processed with Reward #${reward.id}.`;
-        tx.sender = sender.id;
-        tx.receiver = receiver ? receiver.id : null;
-        await strapi.services.transaction.update({ id: tx.id }, tx);
+  //       tx.processed = true;
+  //       tx.processedOn = new Date();
+  //       tx.processedNote = `This transaction is processed with Reward #${reward.id}.`;
+  //       tx.sender = sender.id;
+  //       tx.receiver = receiver ? receiver.id : null;
+  //       await strapi.services.transaction.update({ id: tx.id }, tx);
 
-        await strapi.services.log.info(
-          `User ${sender.accountNumber} receives ${total *
-          ratio} Reward as rebate of sending ${total} USDT.`,
-          sender
-        );
-      } else if (tx.type === strapi.models.transaction.SPLIT_TRANSFER) {
-        // Add split reward to receiver
-        splitReward =
-          splitReward ||
-          _.head(
-            await strapi.services.reward.find({
-              transaction: tx.id,
-              type: strapi.models.reward.RECEIVE
-            })
-          );
+  //       await strapi.services.log.info(
+  //         `User ${sender.accountNumber} receives ${total *
+  //         ratio} Reward as rebate of sending ${total} USDT.`,
+  //         sender
+  //       );
+  //     } else if (tx.type === strapi.models.transaction.SPLIT_TRANSFER) {
+  //       // Add split reward to receiver
+  //       splitReward =
+  //         splitReward ||
+  //         _.head(
+  //           await strapi.services.reward.find({
+  //             transaction: tx.id,
+  //             type: strapi.models.reward.RECEIVE
+  //           })
+  //         );
 
-        if (splitReward) {
-          tx.processed = true;
-          tx.processedOn = new Date();
-          tx.processedNote = `This transaction is already processed with Reward #${splitReward.id}.`;
-          tx.sender = sender.id;
-          tx.receiver = receiver ? receiver.id : null;
-          await strapi.services.transaction.update({ id: tx.id }, tx);
-          return;
-        }
+  //       if (splitReward) {
+  //         tx.processed = true;
+  //         tx.processedOn = new Date();
+  //         tx.processedNote = `This transaction is already processed with Reward #${splitReward.id}.`;
+  //         tx.sender = sender.id;
+  //         tx.receiver = receiver ? receiver.id : null;
+  //         await strapi.services.transaction.update({ id: tx.id }, tx);
+  //         return;
+  //       }
 
-        let ratio =
-          (await strapi.services.setting.getSetting(
-            strapi.models.setting.RewardReceiveSplitRatioSetting
-          )) || "1";
-        ratio = parseFloat(ratio);
-        if (isNaN(ratio)) {
-          ratio = 1;
-        }
+  //       let ratio =
+  //         (await strapi.services.setting.getSetting(
+  //           strapi.models.setting.RewardReceiveSplitRatioSetting
+  //         )) || "1";
+  //       ratio = parseFloat(ratio);
+  //       if (isNaN(ratio)) {
+  //         ratio = 1;
+  //       }
 
-        splitReward = await strapi.services.reward.create({
-          amount: tx.amount * ratio,
-          type: strapi.models.reward.RECEIVE,
-          user: receiver ? receiver.id : null,
-          transaction: tx.id
-        });
+  //       splitReward = await strapi.services.reward.create({
+  //         amount: tx.amount * ratio,
+  //         type: strapi.models.reward.RECEIVE,
+  //         user: receiver ? receiver.id : null,
+  //         transaction: tx.id
+  //       });
 
-        tx.processed = true;
-        tx.processedOn = new Date();
-        tx.processedNote = `This transaction is processed with Reward #${splitReward.id}.`;
-        tx.sender = sender.id;
-        tx.receiver = receiver ? receiver.id : null;
-        await strapi.services.transaction.update({ id: tx.id }, tx);
+  //       tx.processed = true;
+  //       tx.processedOn = new Date();
+  //       tx.processedNote = `This transaction is processed with Reward #${splitReward.id}.`;
+  //       tx.sender = sender.id;
+  //       tx.receiver = receiver ? receiver.id : null;
+  //       await strapi.services.transaction.update({ id: tx.id }, tx);
 
-        await strapi.services.log.info(
-          `User ${
-          receiver ? receiver.accountNumber : receiverAddress
-          } receives ${tx.amount *
-          ratio} Reward as split of receiving ${total} USDT from ${
-          sender.accountNumber
-          }.`,
-          receiver
-        );
-      }
-    });
-  },
+  //       await strapi.services.log.info(
+  //         `User ${
+  //         receiver ? receiver.accountNumber : receiverAddress
+  //         } receives ${tx.amount *
+  //         ratio} Reward as split of receiving ${total} USDT from ${
+  //         sender.accountNumber
+  //         }.`,
+  //         receiver
+  //       );
+  //     }
+  //   });
+  // },
 
-  processReferral: async (tx, amount) => {
-    if (
-      tx.status !== strapi.models.transaction.SUCCESS ||
-      !tx.blockchainReceipt
-    ) {
-      return;
-    }
-    if (tx.type === strapi.models.transaction.SPLIT_TRANSFER) {
-      // Ignore split transfer record
-      return;
-    }
-    if (tx.blockchainReceipt.status !== true) {
-      // Transaction failed then update record and ignore
-      tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
-      tx.status = strapi.models.transaction.FAILED;
-      await strapi.services.transaction.update({ id: tx.id }, tx);
-      return;
-    }
+  // processReferral: async (tx, amount) => {
+  processReferral: async (sender, lock, lockReward) => {
+    // if (
+    //   tx.status !== strapi.models.transaction.SUCCESS ||
+    //   !tx.blockchainReceipt
+    // ) {
+    //   return;
+    // }
+    // if (tx.type === strapi.models.transaction.SPLIT_TRANSFER) {
+    //   // Ignore split transfer record
+    //   return;
+    // }
+    // if (tx.blockchainReceipt.status !== true) {
+    //   // Transaction failed then update record and ignore
+    //   tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
+    //   tx.status = strapi.models.transaction.FAILED;
+    //   await strapi.services.transaction.update({ id: tx.id }, tx);
+    //   return;
+    // }
 
-    let sender = tx.sender;
     if (sender && !sender.id) {
       // sender is a number, get from database
       sender = await strapi
@@ -531,25 +530,27 @@ module.exports = {
         // Check if we already added reward for this transaction
         let reward = _.head(
           await strapi.services.reward.find({
-            transaction: tx.id,
+            reward: lockReward.id,
+            lock: lock.id,
             type: strapi.models.reward.REFERRAL_BONUS,
-            user: sender.father.id
+            user: sender.father.id,
           })
         );
 
         if (!reward) {
           reward = await strapi.services.reward.create({
-            amount: (amount || tx.amount) * ratio,
+            amount: lock.amount * ratio,
             type: strapi.models.reward.REFERRAL_BONUS,
             user: sender.father.id,
-            transaction: tx.id
+            reward: lockReward.id,
+            lock: lock.id,
           });
           await strapi.services.log.info(
             `User ${sender.father.accountNumber} receives ${
-              (amount || tx.amount) * ratio
-            } Reward as referral bonus (level 1) for sending of ${
-              amount || tx.amount
-            } USDT from user ${sender.accountNumber}.`,
+              lock.amount * ratio
+            } Reward as referral bonus (level 1) for stacking of ${
+              lock.amount
+            } Reward from user ${sender.accountNumber}.`,
             sender.father
           );
         }
@@ -576,25 +577,27 @@ module.exports = {
         // Check if we already added reward for this transaction
         let reward = _.head(
           await strapi.services.reward.find({
-            transaction: tx.id,
+            reward: lockReward.id,
+            lock: lock.id,
             type: strapi.models.reward.REFERRAL_BONUS,
-            user: sender.grandFather.id
+            user: sender.grandFather.id,
           })
         );
 
         if (!reward) {
           reward = await strapi.services.reward.create({
-            amount: (amount || tx.amount) * ratio,
+            amount: lock.amount * ratio,
             type: strapi.models.reward.REFERRAL_BONUS,
             user: sender.grandFather.id,
-            transaction: tx.id
+            reward: lockReward.id,
+            lock: lock.id,
           });
           await strapi.services.log.info(
             `User ${sender.grandFather.accountNumber} receives ${
-              (amount || tx.amount) * ratio
+              lock.amount * ratio
             } Reward as referral bonus (level 2) for sending of ${
-              amount || tx.amount
-            } USDT from user ${sender.accountNumber}.`,
+              lock.amount
+            } Reward from user ${sender.accountNumber}.`,
             sender.grandFather
           );
         }
@@ -602,162 +605,163 @@ module.exports = {
     }
   },
 
-  processDeposit: async tx => {
-    if (
-      tx.status !== strapi.models.transaction.SUCCESS ||
-      !tx.blockchainReceipt
-    ) {
-      return;
-    }
-    if (
-      tx.type !== strapi.models.transaction.DEPOSIT ||
-      tx.unit !== strapi.models.transaction.ETH
-    ) {
-      return;
-    }
-    if (tx.blockchainReceipt.status !== true) {
-      // Transaction failed then update record and ignore
-      tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
-      tx.status = strapi.models.transaction.FAILED;
-      await strapi.services.transaction.update({ id: tx.id }, tx);
-      return;
-    }
+  // processDeposit: async tx => {
+  //   if (
+  //     tx.status !== strapi.models.transaction.SUCCESS ||
+  //     !tx.blockchainReceipt
+  //   ) {
+  //     return;
+  //   }
+  //   if (
+  //     tx.type !== strapi.models.transaction.DEPOSIT ||
+  //     tx.unit !== strapi.models.transaction.ETH
+  //   ) {
+  //     return;
+  //   }
+  //   if (tx.blockchainReceipt.status !== true) {
+  //     // Transaction failed then update record and ignore
+  //     tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
+  //     tx.status = strapi.models.transaction.FAILED;
+  //     await strapi.services.transaction.update({ id: tx.id }, tx);
+  //     return;
+  //   }
 
-    // Send USDT corresponding to ETH
-    const rate = await strapi.services.rate.getRate(
-      strapi.models.transaction.ETH,
-      strapi.models.transaction.USDT
-    );
-    const usdt = rate * tx.amount;
-    try {
-      const account = eth.getAccount(
-        await strapi.services.setting.getSetting(
-          strapi.models.setting.DistributingWalletPrivateKey
-        )
-      );
-      tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
-      tx.processed = true;
-      await strapi.services.transaction.update({ id: tx.id }, tx);
-      // 'values' appended after update so need to remove for after update
-      delete tx.values;
-      await eth.sendToken(
-        account,
-        tx.fromAddress,
-        usdt,
-        null,
-        async receipt => {
-          if (receipt.status) {
-            tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
-            tx.processed = true;
-            tx.processedOn = new Date();
-            tx.processedNote = `This transaction is processed with sending transaction ${receipt.transactionHash}.`;
-            await strapi.services.transaction.update({ id: tx.id }, tx);
+  //   // Send USDT corresponding to ETH
+  //   const rate = await strapi.services.rate.getRate(
+  //     strapi.models.transaction.ETH,
+  //     strapi.models.transaction.USDT
+  //   );
+  //   const usdt = rate * tx.amount;
+  //   try {
+  //     const account = eth.getAccount(
+  //       await strapi.services.setting.getSetting(
+  //         strapi.models.setting.DistributingWalletPrivateKey
+  //       )
+  //     );
+  //     tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
+  //     tx.processed = true;
+  //     await strapi.services.transaction.update({ id: tx.id }, tx);
+  //     // 'values' appended after update so need to remove for after update
+  //     delete tx.values;
+  //     await eth.sendToken(
+  //       account,
+  //       tx.fromAddress,
+  //       usdt,
+  //       null,
+  //       async receipt => {
+  //         if (receipt.status) {
+  //           tx.sender = tx.sender ? tx.sender.id || tx.sender : null;
+  //           tx.processed = true;
+  //           tx.processedOn = new Date();
+  //           tx.processedNote = `This transaction is processed with sending transaction ${receipt.transactionHash}.`;
+  //           await strapi.services.transaction.update({ id: tx.id }, tx);
 
-            const sender = await strapi
-              .query("user", "users-permissions")
-              .findOne({ id: tx.sender });
-            await strapi.services.log.info(
-              `User ${sender.accountNumber} deposits ${usdt} USDT with ${tx.amount} ETH.`,
-              sender
-            );
-          } else {
-            tx.processed = false;
-            await strapi.services.transaction.update({ id: tx.id }, tx);
-          }
-        },
-        null,
-        async (error, receipt) => {
-          console.log(receipt);
-          tx.processed = false;
-          await strapi.services.transaction.update({ id: tx.id }, tx);
-        }
-      );
-    } catch (err) {
-      strapi.log.fatal(err);
-      // 'values' appended after update so need to remove for after update
-      delete tx.values;
-      tx.processed = false;
-      await strapi.services.transaction.update({ id: tx.id }, tx);
-    }
-  },
+  //           const sender = await strapi
+  //             .query("user", "users-permissions")
+  //             .findOne({ id: tx.sender });
+  //           await strapi.services.log.info(
+  //             `User ${sender.accountNumber} deposits ${usdt} USDT with ${tx.amount} ETH.`,
+  //             sender
+  //           );
+  //         } else {
+  //           tx.processed = false;
+  //           await strapi.services.transaction.update({ id: tx.id }, tx);
+  //         }
+  //       },
+  //       null,
+  //       async (error, receipt) => {
+  //         console.log(receipt);
+  //         tx.processed = false;
+  //         await strapi.services.transaction.update({ id: tx.id }, tx);
+  //       }
+  //     );
+  //   } catch (err) {
+  //     strapi.log.fatal(err);
+  //     // 'values' appended after update so need to remove for after update
+  //     delete tx.values;
+  //     tx.processed = false;
+  //     await strapi.services.transaction.update({ id: tx.id }, tx);
+  //   }
+  // },
 
-  processTransaction: async tx => {
+  processTransaction: async (tx) => {
     if (tx.type === strapi.models.transaction.BUY_REWARD) {
       strapi.services.transaction.processBuyRewardTransaction(tx);
-    } else if (tx.type === strapi.models.transaction.TRANSFER) {
-      // // Find all sub-items of this hash
-      // const transactions = await strapi.services.transaction.find({
-      //   transactionHash: tx.transactionHash.toLowerCase()
-      // });
-      // if (transactions.length > 1) {
-      //   // This is split transfer
-      //   strapi.services.transaction.processSplitTransaction(transactions);
-      // }
-
-      // // Process referral
-      // strapi.services.transaction.processReferral(
-      //   tx,
-      //   _.sumBy(transactions, tx => numeral(tx.amount).value())
-      // );
-    } else if (tx.type === strapi.models.transaction.DEPOSIT) {
-      strapi.services.transaction.processDeposit(tx);
     }
+    // else if (tx.type === strapi.models.transaction.TRANSFER) {
+    //   // Find all sub-items of this hash
+    //   const transactions = await strapi.services.transaction.find({
+    //     transactionHash: tx.transactionHash.toLowerCase()
+    //   });
+    //   if (transactions.length > 1) {
+    //     // This is split transfer
+    //     strapi.services.transaction.processSplitTransaction(transactions);
+    //   }
+
+    //   // Process referral
+    //   strapi.services.transaction.processReferral(
+    //     tx,
+    //     _.sumBy(transactions, tx => numeral(tx.amount).value())
+    //   );
+    // } else if (tx.type === strapi.models.transaction.DEPOSIT) {
+    //   strapi.services.transaction.processDeposit(tx);
+    // }
   },
 
-  processSplitTransactions: async (startTime, ThresholdTime) => {
-    let currentTime = new Date().getTime();
-    if (startTime && ThresholdTime && currentTime - startTime > ThresholdTime) {
-      // Stop if over threshold
-      return;
-    }
+  // processSplitTransactions: async (startTime, ThresholdTime) => {
+  //   let currentTime = new Date().getTime();
+  //   if (startTime && ThresholdTime && currentTime - startTime > ThresholdTime) {
+  //     // Stop if over threshold
+  //     return;
+  //   }
 
-    try {
-      // Get all unprocessed transactions
-      const subQuery = strapi.models.transaction
-        .query()
-        .where("status", strapi.models.transaction.SUCCESS)
-        .andWhere(function () {
-          this.where("processed", false).orWhereNull("processed");
-        })
-        .andWhere(function () {
-          this.where("type", strapi.models.transaction.TRANSFER).orWhere(
-            "type",
-            strapi.models.transaction.SPLIT_TRANSFER
-          );
-        })
-        .andWhere("unit", strapi.models.transaction.USDT)
-        .groupBy("transactionHash") // transaction group which has more than 1 item is split transfer
-        .havingRaw("COUNT(*) > 1")
-        .select("transactionHash")
-        .limit(1000); // Limit 1000 transactions every 15 minute
+  //   try {
+  //     // Get all unprocessed transactions
+  //     const subQuery = strapi.models.transaction
+  //       .query()
+  //       .where("status", strapi.models.transaction.SUCCESS)
+  //       .andWhere(function () {
+  //         this.where("processed", false).orWhereNull("processed");
+  //       })
+  //       .andWhere(function () {
+  //         this.where("type", strapi.models.transaction.TRANSFER).orWhere(
+  //           "type",
+  //           strapi.models.transaction.SPLIT_TRANSFER
+  //         );
+  //       })
+  //       .andWhere("unit", strapi.models.transaction.USDT)
+  //       .groupBy("transactionHash") // transaction group which has more than 1 item is split transfer
+  //       .havingRaw("COUNT(*) > 1")
+  //       .select("transactionHash")
+  //       .limit(1000); // Limit 1000 transactions every 15 minute
 
-      let transactions = (
-        await strapi.models.transaction
-          .query(qb => {
-            qb.whereIn("transactionHash", subQuery)
-              .orderBy(["created_at", "transactionHash"])
-              .select();
-          })
-          .fetchAll({ withRelated: ["sender", "receiver"] })
-      ).toJSON();
+  //     let transactions = (
+  //       await strapi.models.transaction
+  //         .query(qb => {
+  //           qb.whereIn("transactionHash", subQuery)
+  //             .orderBy(["created_at", "transactionHash"])
+  //             .select();
+  //         })
+  //         .fetchAll({ withRelated: ["sender", "receiver"] })
+  //     ).toJSON();
 
-      transactions = _.groupBy(transactions, _.iteratee("transactionHash"));
-      _.forOwn(transactions, async (value, key) => {
-        currentTime = new Date().getTime();
-        if (
-          startTime &&
-          ThresholdTime &&
-          currentTime - startTime > ThresholdTime
-        ) {
-          // Stop if over threshold
-          return;
-        }
-        await strapi.services.transaction.processSplitTransaction(value);
-      });
-    } catch (err) {
-      strapi.log.fatal(err);
-    }
-  },
+  //     transactions = _.groupBy(transactions, _.iteratee("transactionHash"));
+  //     _.forOwn(transactions, async (value, key) => {
+  //       currentTime = new Date().getTime();
+  //       if (
+  //         startTime &&
+  //         ThresholdTime &&
+  //         currentTime - startTime > ThresholdTime
+  //       ) {
+  //         // Stop if over threshold
+  //         return;
+  //       }
+  //       await strapi.services.transaction.processSplitTransaction(value);
+  //     });
+  //   } catch (err) {
+  //     strapi.log.fatal(err);
+  //   }
+  // },
 
   processBuyRewardTransactions: async (startTime, ThresholdTime) => {
     let currentTime = new Date().getTime();
@@ -770,7 +774,7 @@ module.exports = {
       // Get all unprocessed transactions
       const transactions = (
         await strapi.models.transaction
-          .query(qb => {
+          .query((qb) => {
             qb.where("status", strapi.models.transaction.SUCCESS)
               .andWhere(function () {
                 this.where("processed", false).orWhereNull("processed");
@@ -800,45 +804,45 @@ module.exports = {
     }
   },
 
-  processDepositTransactions: async (startTime, ThresholdTime) => {
-    let currentTime = new Date().getTime();
-    if (startTime && ThresholdTime && currentTime - startTime > ThresholdTime) {
-      // Stop if over threshold
-      return;
-    }
+  // processDepositTransactions: async (startTime, ThresholdTime) => {
+  //   let currentTime = new Date().getTime();
+  //   if (startTime && ThresholdTime && currentTime - startTime > ThresholdTime) {
+  //     // Stop if over threshold
+  //     return;
+  //   }
 
-    try {
-      // Get all unprocessed transactions
-      const transactions = (
-        await strapi.models.transaction
-          .query(qb => {
-            qb.where("status", strapi.models.transaction.SUCCESS)
-              .andWhere(function () {
-                this.where("processed", false).orWhereNull("processed");
-              })
-              .andWhere("type", strapi.models.transaction.DEPOSIT)
-              .andWhere("unit", strapi.models.transaction.ETH)
-              .orderBy("created_at")
-              .limit(1000); // Limit 1000 transactions every 15 minute
-          })
-          .fetchAll()
-      ).toJSON();
+  //   try {
+  //     // Get all unprocessed transactions
+  //     const transactions = (
+  //       await strapi.models.transaction
+  //         .query(qb => {
+  //           qb.where("status", strapi.models.transaction.SUCCESS)
+  //             .andWhere(function () {
+  //               this.where("processed", false).orWhereNull("processed");
+  //             })
+  //             .andWhere("type", strapi.models.transaction.DEPOSIT)
+  //             .andWhere("unit", strapi.models.transaction.ETH)
+  //             .orderBy("created_at")
+  //             .limit(1000); // Limit 1000 transactions every 15 minute
+  //         })
+  //         .fetchAll()
+  //     ).toJSON();
 
-      for (var i = 0; i < transactions.length; i++) {
-        const tx = transactions[i];
-        currentTime = new Date().getTime();
-        if (
-          startTime &&
-          ThresholdTime &&
-          currentTime - startTime > ThresholdTime
-        ) {
-          // Stop if over threshold
-          return;
-        }
-        strapi.services.transaction.processDeposit(tx);
-      }
-    } catch (err) {
-      strapi.log.fatal(err);
-    }
-  }
+  //     for (var i = 0; i < transactions.length; i++) {
+  //       const tx = transactions[i];
+  //       currentTime = new Date().getTime();
+  //       if (
+  //         startTime &&
+  //         ThresholdTime &&
+  //         currentTime - startTime > ThresholdTime
+  //       ) {
+  //         // Stop if over threshold
+  //         return;
+  //       }
+  //       strapi.services.transaction.processDeposit(tx);
+  //     }
+  //   } catch (err) {
+  //     strapi.log.fatal(err);
+  //   }
+  // }
 };

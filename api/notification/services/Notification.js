@@ -228,7 +228,7 @@ module.exports = {
             qb.where("sent", false)
               .andWhere("sending", false)
               .andWhere("retries", "<", 5)
-              .andWhere("scheduleTime", "<=", new Date())
+              .andWhere("scheduleTime", "<=", new Date().toISOString())
               .orderBy("scheduleTime");
           })
           .fetchAll({ withRelated: [] })

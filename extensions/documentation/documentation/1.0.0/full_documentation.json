@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/28/2021 6:49:27 PM"
+    "x-generation-date": "06/29/2021 9:44:24 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -12733,6 +12733,15 @@
               },
               "user": {
                 "type": "string"
+              },
+              "reward": {
+                "type": "string"
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -13260,6 +13269,99 @@
                 "type": "string"
               }
             }
+          },
+          "reward": {
+            "required": [
+              "id",
+              "amount",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "lock": {
+                "type": "string"
+              },
+              "gameRecord": {
+                "type": "string"
+              },
+              "purchase": {
+                "type": "string"
+              },
+              "transaction": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "reward": {
+                "type": "string"
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "amount",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "lock": {
+                  "type": "string"
+                },
+                "gameRecord": {
+                  "type": "string"
+                },
+                "purchase": {
+                  "type": "string"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "reward": {
+                  "type": "string"
+                },
+                "rewards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -13308,6 +13410,15 @@
           },
           "user": {
             "type": "string"
+          },
+          "reward": {
+            "type": "string"
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -15285,6 +15396,15 @@
                 },
                 "user": {
                   "type": "string"
+                },
+                "reward": {
+                  "type": "string"
+                },
+                "rewards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -17038,6 +17158,15 @@
                 },
                 "user": {
                   "type": "string"
+                },
+                "reward": {
+                  "type": "string"
+                },
+                "rewards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }

@@ -702,6 +702,99 @@
                 "type": "string"
               }
             }
+          },
+          "reward": {
+            "required": [
+              "id",
+              "amount",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "lock": {
+                "type": "string"
+              },
+              "gameRecord": {
+                "type": "string"
+              },
+              "purchase": {
+                "type": "string"
+              },
+              "transaction": {
+                "type": "string"
+              },
+              "user": {
+                "type": "string"
+              },
+              "reward": {
+                "type": "string"
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "amount",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "lock": {
+                  "type": "string"
+                },
+                "gameRecord": {
+                  "type": "string"
+                },
+                "purchase": {
+                  "type": "string"
+                },
+                "transaction": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "string"
+                },
+                "reward": {
+                  "type": "string"
+                },
+                "rewards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -750,6 +843,15 @@
           },
           "user": {
             "type": "string"
+          },
+          "reward": {
+            "type": "string"
+          },
+          "rewards": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

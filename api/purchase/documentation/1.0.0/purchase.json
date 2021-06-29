@@ -927,6 +927,15 @@
               },
               "user": {
                 "type": "string"
+              },
+              "reward": {
+                "type": "string"
+              },
+              "rewards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }

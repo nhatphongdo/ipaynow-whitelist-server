@@ -115,11 +115,15 @@ module.exports = {
       });
 
       // Deduct in reward
-      await strapi.services.reward.create({
+      const lockReward = await strapi.services.reward.create({
         amount: -amountValue.value(),
         type: strapi.models.reward.EARN_LOCKED,
         user: ctx.state.user.id
       });
+
+      // Add referral
+      await strapi.services.transaction.processReferral(ctx.state.user, lock, lockReward);
+
       balance = await strapi.services.reward.getRewardBalanceByUser(
         ctx.state.user.id
       );

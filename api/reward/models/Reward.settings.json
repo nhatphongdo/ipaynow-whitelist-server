@@ -59,6 +59,14 @@
       "via": "rewards",
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "reward": {
+      "model": "reward",
+      "via": "rewards"
+    },
+    "rewards": {
+      "collection": "reward",
+      "via": "reward"
     }
   }
 }

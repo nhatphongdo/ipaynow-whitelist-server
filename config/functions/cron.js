@@ -50,10 +50,10 @@ module.exports = {
     );
 
     // Process Deposit reward request
-    strapi.services.transaction.processDepositTransactions(
-      startTime,
-      ThresholdTime
-    );
+    // strapi.services.transaction.processDepositTransactions(
+    //   startTime,
+    //   ThresholdTime
+    // );
   },
 
   "0 */6 * * *": async () => {

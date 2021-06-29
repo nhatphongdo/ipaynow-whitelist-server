@@ -52,7 +52,7 @@ module.exports = {
           {
             sent: true,
             user: ctx.state.user.id,
-            read_ne: true,
+            read: false,
             _sort: "sentTime:desc"
           },
           []
