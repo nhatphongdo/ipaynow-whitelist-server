@@ -23,7 +23,7 @@ module.exports = {
       if (
         result.email &&
         result.email.toLowerCase().startsWith("--do-not-use--") &&
-        result.email.toLowerCase().endsWith("@fake.haladinar.io")
+        result.email.toLowerCase().endsWith("@fake.ripple.io")
       ) {
         result.email = "";
       }
@@ -368,7 +368,7 @@ module.exports = {
       if (
         user.email &&
         user.email.toLowerCase().startsWith("--do-not-use--") &&
-        user.email.toLowerCase().endsWith("@fake.haladinar.io")
+        user.email.toLowerCase().endsWith("@fake.ripple.io")
       ) {
         user.email = "";
       }

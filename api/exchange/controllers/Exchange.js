@@ -141,7 +141,7 @@ module.exports = {
 
           strapi.services.notification.send(
             exchanges[0].user,
-            "Haladinar",
+            "Ripple Technologies",
             `User ${ctx.state.user.accountNumber} wants to buy ${tradeAmount} ${exchanges[0].unit} from you. Please approve request in 'P2PX'.`
           );
 
@@ -210,7 +210,34 @@ module.exports = {
           transactionHash: message.txHash.toLowerCase(),
         });
         if (transactions.length === 0) {
-          return ctx.badRequest(null, "Cannot find corresponding transaction");
+          // Get from blockchain
+          const realTransaction = await eth.getTransaction(
+            message.txHash.toLowerCase()
+          );
+          const realReceipt = await eth.getTransactionReceipt(
+            message.txHash.toLowerCase()
+          );
+          if (realTransaction && realReceipt && realReceipt.status === true) {
+            transactions.push(
+              await strapi.services.transaction.updateBlockchainTransaction(
+                eth.hexToAddress(realTransaction.returnValues.from),
+                eth.hexToAddress(realTransaction.returnValues.to),
+                realTransaction.transactionHash,
+                eth.fromWei(
+                  realTransaction.returnValues.value.toString() + "0",
+                  "gwei"
+                ), // Gwei has 9 digits
+                false,
+                realReceipt.status,
+                realReceipt
+              )
+            );
+          } else {
+            return ctx.badRequest(
+              null,
+              "Cannot find corresponding transaction"
+            );
+          }
         }
 
         let feeRate =
@@ -241,7 +268,7 @@ module.exports = {
         const receipt = await eth.getTransactionReceipt(
           transactions[0].transactionHash
         );
-        if (!receipt || receipt.status !== true) {
+        if (!receipt) {
           return ctx.badRequest(null, "Transaction is not valid");
         }
 
@@ -254,7 +281,7 @@ module.exports = {
           maxAmount: amountValue.value(),
           type: strapi.models.exchange.SELL,
           paymentMethods: `${strapi.models.exchange.BANK_TRANSFER}`,
-          isValid: true,
+          isValid: receipt.status === true,
           remainAmount: amountValue.value(),
           user: ctx.state.user.id,
           transaction: transactions[0].id,
@@ -266,6 +293,12 @@ module.exports = {
           },
           {
             exchange: exchange.id,
+            status:
+              receipt.status === true
+                ? strapi.models.transaction.SUCCESS
+                : receipt.status === false
+                ? strapi.models.transaction.FAILED
+                : strapi.models.transaction.PENDING,
             processed: true,
             processedOn: moment().utc().toDate(),
             processedNote: `This transaction is processed with Exchange #${exchange.id}`,
@@ -367,7 +400,7 @@ module.exports = {
 
                 strapi.services.notification.send(
                   exchange.user.id,
-                  "Haladinar",
+                  "Ripple Technologies",
                   `We sent ${exchange.remainAmount} USDT to your wallet.`
                 );
               }
@@ -398,7 +431,7 @@ module.exports = {
             remainAmount: savedAmount,
           }
         );
-        return ctx.badRequest(null, 'Failed to withdraw');
+        return ctx.badRequest(null, "Failed to withdraw");
       }
     } catch (err) {
       strapi.log.fatal(err);

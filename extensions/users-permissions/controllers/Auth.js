@@ -84,7 +84,7 @@ module.exports = {
       params.email = params.email.toLowerCase();
     } else {
       // Fake email
-      params.email = "--do-not-use--" + params.username + "@fake.haladinar.io";
+      params.email = "--do-not-use--" + params.username + "@fake.ripple.io";
     }
 
     params.role = role._id || role.id;
@@ -218,7 +218,7 @@ module.exports = {
               .startsWith("--do-not-use--") &&
             userByWalletAddress.email
               .toLowerCase()
-              .endsWith("@fake.haladinar.io")
+              .endsWith("@fake.ripple.io")
           ) {
             userByWalletAddress.email = "";
           }
@@ -415,7 +415,7 @@ module.exports = {
       if (
         result.email &&
         result.email.toLowerCase().startsWith("--do-not-use--") &&
-        result.email.toLowerCase().endsWith("@fake.haladinar.io")
+        result.email.toLowerCase().endsWith("@fake.ripple.io")
       ) {
         result.email = "";
       }
@@ -575,7 +575,7 @@ module.exports = {
         if (
           result.email &&
           result.email.toLowerCase().startsWith("--do-not-use--") &&
-          result.email.toLowerCase().endsWith("@fake.haladinar.io")
+          result.email.toLowerCase().endsWith("@fake.ripple.io")
         ) {
           result.email = "";
         }

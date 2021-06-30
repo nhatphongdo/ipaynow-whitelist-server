@@ -16,7 +16,7 @@ const Eth = require("../../../services/eth");
 const eth = Eth();
 
 module.exports = {
-  find: async ctx => {
+  find: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -44,7 +44,7 @@ module.exports = {
         if (status === "paying") {
           statuses = [
             strapi.models.trade.WAIT_FOR_PAYMENT,
-            strapi.models.trade.PAID_WAIT_FOR_CONFIRMATION
+            strapi.models.trade.PAID_WAIT_FOR_CONFIRMATION,
           ];
         } else if (status === "completed") {
           statuses = [
@@ -54,20 +54,20 @@ module.exports = {
             strapi.models.trade.NO_PAYMENT,
             strapi.models.trade.NO_TOKEN,
             strapi.models.trade.CANCEL_PAYMENT,
-            strapi.models.trade.CANCELLED
+            strapi.models.trade.CANCELLED,
           ];
         } else {
           statuses = [
             strapi.models.trade.PENDING,
             strapi.models.trade.SENT_TO_SELLER,
-            strapi.models.trade.WAIT_FOR_SELLER_APPROVAL
+            strapi.models.trade.WAIT_FOR_SELLER_APPROVAL,
           ];
         }
         trades = (
           await strapi.models.trade
-            .query(qb => {
+            .query((qb) => {
               qb.whereIn("status", statuses)
-                .andWhere(function() {
+                .andWhere(function () {
                   this.where("seller", ctx.state.user.id).orWhere(
                     "buyer",
                     ctx.state.user.id
@@ -110,7 +110,7 @@ module.exports = {
     }
   },
 
-  findOne: async ctx => {
+  findOne: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -169,7 +169,7 @@ module.exports = {
       if (
         user.email &&
         user.email.toLowerCase().startsWith("--do-not-use--") &&
-        user.email.toLowerCase().endsWith("@fake.haladinar.io")
+        user.email.toLowerCase().endsWith("@fake.ripple.io")
       ) {
         user.email = "";
       }
@@ -183,7 +183,7 @@ module.exports = {
           "walletAddress",
           "contactNumber",
           "paymentInfo",
-          "isBuyer"
+          "isBuyer",
         ])
       );
     } catch (err) {
@@ -197,7 +197,7 @@ module.exports = {
     }
   },
 
-  approve: async ctx => {
+  approve: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -245,13 +245,11 @@ module.exports = {
             // Accept this trade
             await strapi.services.trade.update(
               {
-                id: trade.id
+                id: trade.id,
               },
               {
                 status: strapi.models.trade.WAIT_FOR_PAYMENT,
-                sellerApproveTime: moment()
-                  .utc()
-                  .toDate()
+                sellerApproveTime: moment().utc().toDate(),
               }
             );
             await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -259,24 +257,22 @@ module.exports = {
 
             strapi.services.notification.send(
               trade.buyer.id,
-              "Haladinar",
+              "Ripple Technologies",
               `User ${trade.seller.accountNumber} accepted to sell ${trade.unit} to you. Please check 'P2PX' to continue.`
             );
 
             return ctx.send({
-              status: strapi.models.trade.WAIT_FOR_PAYMENT
+              status: strapi.models.trade.WAIT_FOR_PAYMENT,
             });
           } else if (trade.buyer.id === ctx.state.user.id) {
             // Cancel this trade
             await strapi.services.trade.update(
               {
-                id: trade.id
+                id: trade.id,
               },
               {
                 status: strapi.models.trade.CANCELLED,
-                sellerApproveTime: moment()
-                  .utc()
-                  .toDate()
+                sellerApproveTime: moment().utc().toDate(),
               }
             );
             await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -285,21 +281,21 @@ module.exports = {
             // Add back token
             await strapi.services.exchange.update(
               {
-                id: trade.sellExchange.id
+                id: trade.sellExchange.id,
               },
               {
-                remainAmount: trade.sellExchange.remainAmount + trade.amount
+                remainAmount: trade.sellExchange.remainAmount + trade.amount,
               }
             );
 
             strapi.services.notification.send(
               trade.seller.id,
-              "Haladinar",
+              "Ripple Technologies",
               `User ${trade.buyer.accountNumber} cancelled to buy ${trade.unit} from you.`
             );
 
             return ctx.send({
-              status: strapi.models.trade.CANCELLED
+              status: strapi.models.trade.CANCELLED,
             });
           } else {
             return ctx.badRequest(null, "Invalid request");
@@ -323,13 +319,11 @@ module.exports = {
           if (trade.buyer.id === ctx.state.user.id) {
             await strapi.services.trade.update(
               {
-                id: trade.id
+                id: trade.id,
               },
               {
                 status: strapi.models.trade.PAID_WAIT_FOR_CONFIRMATION,
-                paidTime: moment()
-                  .utc()
-                  .toDate()
+                paidTime: moment().utc().toDate(),
               }
             );
             await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -337,23 +331,21 @@ module.exports = {
 
             strapi.services.notification.send(
               trade.seller.id,
-              "Haladinar",
+              "Ripple Technologies",
               `User ${trade.buyer.accountNumber} confirmed payment for ${trade.unit} purchase. Please check 'P2PX' to continue.`
             );
 
             return ctx.send({
-              status: strapi.models.trade.PAID_WAIT_FOR_CONFIRMATION
+              status: strapi.models.trade.PAID_WAIT_FOR_CONFIRMATION,
             });
           } else if (trade.seller.id === ctx.state.user.id) {
             await strapi.services.trade.update(
               {
-                id: trade.id
+                id: trade.id,
               },
               {
                 status: strapi.models.trade.CANCELLED,
-                paidTime: moment()
-                  .utc()
-                  .toDate()
+                paidTime: moment().utc().toDate(),
               }
             );
             await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -362,21 +354,21 @@ module.exports = {
             // Add back token
             await strapi.services.exchange.update(
               {
-                id: trade.sellExchange.id
+                id: trade.sellExchange.id,
               },
               {
-                remainAmount: trade.sellExchange.remainAmount + trade.amount
+                remainAmount: trade.sellExchange.remainAmount + trade.amount,
               }
             );
 
             strapi.services.notification.send(
               trade.buyer.id,
-              "Haladinar",
+              "Ripple Technologies",
               `User ${trade.seller.accountNumber} cancelled to sell ${trade.unit} to you.`
             );
 
             return ctx.send({
-              status: strapi.models.trade.CANCELLED
+              status: strapi.models.trade.CANCELLED,
             });
           } else {
             return ctx.badRequest(null, "Invalid request");
@@ -396,13 +388,11 @@ module.exports = {
           }
           await strapi.services.trade.update(
             {
-              id: trade.id
+              id: trade.id,
             },
             {
               status: strapi.models.trade.SENDING_TO_BUYER,
-              confirmedTime: moment()
-                .utc()
-                .toDate()
+              confirmedTime: moment().utc().toDate(),
             }
           );
           await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -410,7 +400,7 @@ module.exports = {
 
           strapi.services.notification.send(
             trade.buyer.id,
-            "Haladinar",
+            "Ripple Technologies",
             `User ${trade.seller.accountNumber} confirmed receiving payment. We are sending you the ${trade.unit}. Please check 'P2PX' for progress.`
           );
 
@@ -425,30 +415,31 @@ module.exports = {
             trade.buyer.walletAddress,
             trade.amount,
             null,
-            async receipt => {
+            async (receipt) => {
               if (receipt.status) {
-                var tx = await strapi.services.transaction.updateBlockchainTransaction(
-                  receipt.from,
-                  trade.buyer.walletAddress,
-                  receipt.transactionHash,
-                  trade.amount,
-                  false,
-                  receipt.status,
-                  receipt
-                );
+                var tx =
+                  await strapi.services.transaction.updateBlockchainTransaction(
+                    receipt.from,
+                    trade.buyer.walletAddress,
+                    receipt.transactionHash,
+                    trade.amount,
+                    false,
+                    receipt.status,
+                    receipt
+                  );
                 if (tx) {
                   await strapi.services.trade.update(
                     {
-                      id: trade.id
+                      id: trade.id,
                     },
                     {
-                      transaction: tx.id
+                      transaction: tx.id,
                     }
                   );
 
                   strapi.services.notification.send(
                     trade.buyer.id,
-                    "Haladinar",
+                    "Ripple Technologies",
                     `We sent ${trade.amount} ${trade.unit} to your wallet. Please check 'P2PX' to finish the trade.`
                   );
                 }
@@ -458,7 +449,7 @@ module.exports = {
             async (error, receipt) => {}
           );
           return ctx.send({
-            status: strapi.models.trade.SENDING_TO_BUYER
+            status: strapi.models.trade.SENDING_TO_BUYER,
           });
         case strapi.models.trade.SENDING_TO_BUYER:
         case strapi.models.trade.NO_TOKEN:
@@ -475,13 +466,11 @@ module.exports = {
           }
           await strapi.services.trade.update(
             {
-              id: trade.id
+              id: trade.id,
             },
             {
               status: strapi.models.trade.COMPLETED,
-              completedTime: moment()
-                .utc()
-                .toDate()
+              completedTime: moment().utc().toDate(),
             }
           );
           await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -490,7 +479,7 @@ module.exports = {
           var allTrades = await strapi.services.trade.find(
             {
               sellExchange: trade.sellExchange.id,
-              status: strapi.models.trade.COMPLETED
+              status: strapi.models.trade.COMPLETED,
             },
             []
           );
@@ -501,22 +490,22 @@ module.exports = {
             // Sold out
             await strapi.services.exchange.update(
               {
-                id: trade.sellExchange.id
+                id: trade.sellExchange.id,
               },
               {
-                isValid: false
+                isValid: false,
               }
             );
           }
 
           strapi.services.notification.send(
             trade.seller.id,
-            "Haladinar",
+            "Ripple Technologies",
             `User ${trade.buyer.accountNumber} confirmed receiving ${trade.unit}. This trade is finished and closed.`
           );
 
           return ctx.send({
-            status: strapi.models.trade.COMPLETED
+            status: strapi.models.trade.COMPLETED,
           });
         default:
           return ctx.badRequest(null, "Invalid request");
@@ -532,7 +521,7 @@ module.exports = {
     }
   },
 
-  reject: async ctx => {
+  reject: async (ctx) => {
     try {
       // Check the signature
       const message = await strapi.services.token.verifyRequest(ctx);
@@ -574,13 +563,11 @@ module.exports = {
           }
           await strapi.services.trade.update(
             {
-              id: trade.id
+              id: trade.id,
             },
             {
               status: strapi.models.trade.REJECTED,
-              sellerApproveTime: moment()
-                .utc()
-                .toDate()
+              sellerApproveTime: moment().utc().toDate(),
             }
           );
           await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -588,21 +575,21 @@ module.exports = {
           // Add back token
           await strapi.services.exchange.update(
             {
-              id: trade.sellExchange.id
+              id: trade.sellExchange.id,
             },
             {
-              remainAmount: trade.sellExchange.remainAmount + trade.amount
+              remainAmount: trade.sellExchange.remainAmount + trade.amount,
             }
           );
 
           strapi.services.notification.send(
             trade.buyer.id,
-            "Haladinar",
+            "HalaRipple Technologiesdinar",
             `User ${trade.seller.accountNumber} rejected to sell ${trade.unit} to you. This trade is closed.`
           );
 
           return ctx.send({
-            status: strapi.models.trade.REJECTED
+            status: strapi.models.trade.REJECTED,
           });
         case strapi.models.trade.WAIT_FOR_PAYMENT:
           // Buyer confirms
@@ -618,13 +605,11 @@ module.exports = {
           }
           await strapi.services.trade.update(
             {
-              id: trade.id
+              id: trade.id,
             },
             {
               status: strapi.models.trade.CANCEL_PAYMENT,
-              paidTime: moment()
-                .utc()
-                .toDate()
+              paidTime: moment().utc().toDate(),
             }
           );
           await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -632,21 +617,21 @@ module.exports = {
           // Add back token
           await strapi.services.exchange.update(
             {
-              id: trade.sellExchange.id
+              id: trade.sellExchange.id,
             },
             {
-              remainAmount: trade.sellExchange.remainAmount + trade.amount
+              remainAmount: trade.sellExchange.remainAmount + trade.amount,
             }
           );
 
           strapi.services.notification.send(
             trade.seller.id,
-            "Haladinar",
+            "Ripple Technologies",
             `User ${trade.buyer.accountNumber} rejected payment for ${trade.unit} purchase. Your ${trade.unit} is still in ESCROW. This trade is closed.`
           );
 
           return ctx.send({
-            status: strapi.models.trade.CANCEL_PAYMENT
+            status: strapi.models.trade.CANCEL_PAYMENT,
           });
         case strapi.models.trade.PAID_WAIT_FOR_CONFIRMATION:
           // Seller confirms
@@ -662,13 +647,11 @@ module.exports = {
           }
           await strapi.services.trade.update(
             {
-              id: trade.id
+              id: trade.id,
             },
             {
               status: strapi.models.trade.NO_PAYMENT,
-              confirmedTime: moment()
-                .utc()
-                .toDate()
+              confirmedTime: moment().utc().toDate(),
             }
           );
           await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -676,12 +659,12 @@ module.exports = {
 
           strapi.services.notification.send(
             trade.buyer.id,
-            "Haladinar",
+            "Ripple Technologies",
             `User ${trade.seller.accountNumber} confirmed not receiving payment for selling ${trade.unit} to you. This trade is closed.`
           );
 
           return ctx.send({
-            status: strapi.models.trade.NO_PAYMENT
+            status: strapi.models.trade.NO_PAYMENT,
           });
         case strapi.models.trade.SENDING_TO_BUYER:
           // Buyer confirms
@@ -697,13 +680,11 @@ module.exports = {
           }
           await strapi.services.trade.update(
             {
-              id: trade.id
+              id: trade.id,
             },
             {
               status: strapi.models.trade.NO_TOKEN,
-              completedTime: moment()
-                .utc()
-                .toDate()
+              completedTime: moment().utc().toDate(),
             }
           );
           await strapi.services.trade.clearUserCache(trade.buyer.id);
@@ -711,12 +692,12 @@ module.exports = {
 
           strapi.services.notification.send(
             trade.seller.id,
-            "Haladinar",
+            "Ripple Technologies",
             `User ${trade.buyer.accountNumber} confirmed not receiving ${trade.unit} from you. This trade is closed.`
           );
 
           return ctx.send({
-            status: strapi.models.trade.NO_TOKEN
+            status: strapi.models.trade.NO_TOKEN,
           });
         default:
           return ctx.badRequest(null, "Invalid request");
@@ -730,5 +711,5 @@ module.exports = {
         ctx.request.admin ? [{ messages: [{ id: adminError }] }] : err.message
       );
     }
-  }
+  },
 };

@@ -2,7 +2,7 @@
   "name": "server",
   "private": true,
   "version": "0.1.0",
-  "description": "Haladinar Reward Server",
+  "description": "Ripple Reward Server",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
