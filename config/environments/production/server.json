@@ -5,7 +5,7 @@
   "proxy": {
     "enabled": true,
     "ssl": true,
-    "host": "api.haladinar.io",
+    "host": "api.iswop.ipaynow.io",
     "port": 443
   },
   "cron": {
