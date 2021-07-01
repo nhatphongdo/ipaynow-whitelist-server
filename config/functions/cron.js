@@ -56,16 +56,16 @@ module.exports = {
     // );
   },
 
+  "0 */1 * * *": async () => {
+    // Every 1 hour from 00:00
+    // Process earn lock released every day
+    strapi.services.reward.processEarnLocks();
+  },
+
   "0 */6 * * *": async () => {
     // Every 6 hours from 00:00
     // Update rates from CoinMarketCap as CMC allows 333 credits per day / 21 credits per update ~ 12 updates per day
     strapi.services.rate.updateFromCoinMarketCap();
-  },
-
-  "0 */12 * * *": async () => {
-    // Every 12 hours from 00:00
-    // Process earn lock released every day
-    strapi.services.reward.processEarnLocks();
   },
 
   "0 */24 * * *": async () => {
@@ -74,5 +74,5 @@ module.exports = {
     // strapi.services.interest.processDailyInterest();
     // Process expired membership
     // strapi.services.account.processMembership();
-  }
+  },
 };
