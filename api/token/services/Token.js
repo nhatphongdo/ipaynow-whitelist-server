@@ -25,7 +25,7 @@ module.exports = {
     const tokens = await strapi
       .query("token")
       .find({ user: user.id, enabled: true }, []);
-    if (!tokens.length === 0) {
+    if (tokens.length === 0) {
       ctx.badRequest(
         null,
         ctx.request.admin
