@@ -19,6 +19,7 @@ const BUY_STORE_ITEM = 'Buy Store Item';
 const RewardsByUser = 'rewards.user:';
 const RewardBalanceByUser = 'rewards.balance:user:';
 const LockBalanceByUser = "rewards.lock-balance.user:";
+const LockBalanceByAllUsers = "rewards.lock-balance.users";
 
 module.exports = {
   UNKNOWN,
@@ -38,6 +39,7 @@ module.exports = {
   RewardsByUser,
   RewardBalanceByUser,
   LockBalanceByUser,
+  LockBalanceByAllUsers,
 
   // Before saving a value.
   // Fired before an `insert` or `update` query.
@@ -49,6 +51,7 @@ module.exports = {
     await Cache.del(RewardsByUser + (model.attributes.user || ''));
     await Cache.del(RewardBalanceByUser + (model.attributes.user || ''));
     await Cache.del(LockBalanceByUser + (model.attributes.user || ""));
+    await Cache.del(LockBalanceByAllUsers);
 
     if (strapi.socket && model.attributes.user) {
       strapi.socket.emitToUser(model.attributes.user, 'wallet_updated');
@@ -97,6 +100,7 @@ module.exports = {
     await Cache.del(RewardsByUser + (model.attributes.user || ''));
     await Cache.del(RewardBalanceByUser + (model.attributes.user || ''));
     await Cache.del(LockBalanceByUser + (model.attributes.user || ""));
+    await Cache.del(LockBalanceByAllUsers);
 
     if (strapi.socket && model.attributes.user) {
       strapi.socket.emitToUser(model.attributes.user, 'wallet_updated');

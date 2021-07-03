@@ -40,9 +40,7 @@ module.exports = {
         balance: await strapi.services.reward.getRewardBalanceByUser(
           ctx.state.user.id
         ),
-        lockBalance: await strapi.services.reward.getLockBalanceByUser(
-          ctx.state.user.id
-        ),
+        lockBalance: await strapi.services.reward.getLockBalanceByAllUsers(),
         lock: currentLock.length > 0 ? currentLock[0] : null,
       });
     } catch (err) {

@@ -49,6 +49,21 @@ module.exports = {
     return lockBalance;
   },
 
+  getLockBalanceByAllUsers: async () => {
+    let lockBalance = await Cache.get(
+      strapi.models.reward.LockBalanceByAllUsers
+    );
+    if (!lockBalance) {
+      lockBalance =
+        _.head(
+          await strapi.models.lock.query().sum({ balance: "amount" }).select()
+        ).balance || 0;
+      await Cache.set(strapi.models.reward.LockBalanceByAllUsers, lockBalance);
+    }
+
+    return lockBalance;
+  },
+
   processEarnLocks: async () => {
     // Get locks past completed
     const locks = (
