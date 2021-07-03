@@ -197,13 +197,32 @@ module.exports = {
             },
           });
 
-          await strapi.query("token").create({
-            user: userByWalletAddress,
-            clientPublicKey: params.publicKey,
-            serverPrivateKey: privateKey,
-            serverPublicKey: publicKey,
-            enabled: true,
-          });
+          const tokens = await strapi
+            .query("token")
+            .find({
+              user: userByWalletAddress.id,
+              clientPublicKey: params.publicKey,
+            }, []);
+          if (tokens.length > 0) {
+            await strapi.query("token").update(
+              {
+                id: tokens[0].id
+              },
+              {
+                serverPrivateKey: privateKey,
+                serverPublicKey: publicKey,
+                enabled: true,
+              }
+            );
+          } else {
+            await strapi.query("token").create({
+              user: userByWalletAddress,
+              clientPublicKey: params.publicKey,
+              serverPrivateKey: privateKey,
+              serverPublicKey: publicKey,
+              enabled: true,
+            });
+          }
 
           const serverKey = publicKey;
 
