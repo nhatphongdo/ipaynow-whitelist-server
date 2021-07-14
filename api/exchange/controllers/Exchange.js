@@ -218,20 +218,40 @@ module.exports = {
             message.txHash.toLowerCase()
           );
           if (realTransaction && realReceipt && realReceipt.status === true) {
-            transactions.push(
-              await strapi.services.transaction.updateBlockchainTransaction(
-                eth.hexToAddress(realTransaction.returnValues.from),
-                eth.hexToAddress(realTransaction.returnValues.to),
-                realTransaction.transactionHash,
-                eth.fromWei(
-                  realTransaction.returnValues.value.toString() + "0",
-                  "gwei"
-                ), // Gwei has 9 digits
-                false,
-                realReceipt.status,
-                realReceipt
-              )
-            );
+            let fromAddress, toAddress, amount
+            if (realTransaction.returnValues) {
+              fromAddress = eth.hexToAddress(realTransaction.returnValues.from);
+              toAddress = eth.hexToAddress(realTransaction.returnValues.to);
+              eth.fromWei(
+                realTransaction.returnValues.value.toString() + "0",
+                "gwei"
+              ); // Gwei has 9 digits
+            } else if (realReceipt.logs && realReceipt.logs[0]) {
+              fromAddress = eth.hexToAddress(realReceipt.logs[0].topics[1]);
+              toAddress = eth.hexToAddress(realReceipt.logs[0].topics[2]);
+              amount = eth.fromWei(
+                eth.hexToNumberString(realReceipt.logs[0].data) + "0",
+                "gwei"
+              );
+            }
+            if (fromAddress && toAddress && amount) {
+              transactions.push(
+                await strapi.services.transaction.updateBlockchainTransaction(
+                  fromAddress,
+                  toAddress,
+                  realTransaction.transactionHash,
+                  amount,
+                  false,
+                  realReceipt.status,
+                  realReceipt
+                )
+              );
+            } else {
+              return ctx.badRequest(
+                null,
+                "Cannot find corresponding transaction"
+              );
+            }
           } else {
             return ctx.badRequest(
               null,
