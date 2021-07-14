@@ -708,6 +708,13 @@ module.exports = {
       return;
     }
 
+    const receipt = await eth.getTransactionReceipt(
+      tx.transactionHash
+    );
+    if (!receipt) {
+      return;
+    }
+
     const amountValue = Math.max(0, tx.amount - tx.amount * feeRate);
     if (amountValue === 0) {
       return;
