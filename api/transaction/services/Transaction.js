@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require("lodash");
+const moment = require("moment");
 const numeral = require("numeral");
 // const DevstoreApi = require('../../../client/DevstoreApi')
 
@@ -684,9 +685,70 @@ module.exports = {
   //   }
   // },
 
+  processExchangeSellTransaction: async (tx) => {
+    let feeRate =
+      (await strapi.services.setting.getSetting(
+        strapi.models.setting.ExchangeFeeRateSetting
+      )) || "0";
+    feeRate = parseFloat(feeRate);
+    if (isNaN(feeRate)) {
+      feeRate = 0;
+    }
+
+    // Validate transaction
+    let escrowWallet =
+      (await strapi.services.setting.getSetting(
+        strapi.models.setting.ExchangeEscrowWalletSetting
+      )) || "";
+    if (
+      tx.toAddress !== escrowWallet.toLowerCase() ||
+      tx.unit !== strapi.models.transaction.USDT ||      
+      tx.processed === true
+    ) {
+      return;
+    }
+
+    const amountValue = Math.max(0, tx.amount - tx.amount * feeRate)
+    if (amountValue === 0) {
+      return;
+    }
+    if (!tx.sender || !tx.sender.id) {
+      return;
+    }
+    // Create Sell request
+    const exchange = await strapi.services.exchange.create({
+      postTime: moment().utc().toDate(),
+      amount: amountValue,
+      unit: strapi.models.exchange.USDT,
+      minAmount: 0,
+      maxAmount: amountValue,
+      type: strapi.models.exchange.SELL,
+      paymentMethods: `${strapi.models.exchange.BANK_TRANSFER}`,
+      isValid: receipt.status === true,
+      remainAmount: amountValue,
+      user: tx.sender.id || tx.sender,
+      transaction: tx.id,
+    });
+
+    await strapi.services.transaction.update(
+      {
+        id: tx.id,
+      },
+      {
+        exchange: exchange.id,
+        processed: true,
+        processedOn: moment().utc().toDate(),
+        processedNote: `This transaction is processed with Exchange #${exchange.id}`,
+      }
+    );
+  },
+
   processTransaction: async (tx) => {
     if (tx.type === strapi.models.transaction.BUY_REWARD) {
       strapi.services.transaction.processBuyRewardTransaction(tx);
+    }
+    if (tx.type === strapi.models.transaction.EXCHANGE_SELL_ESCROW) {
+      strapi.services.transaction.processExchangeSellTransaction(tx);
     }
     // else if (tx.type === strapi.models.transaction.TRANSFER) {
     //   // Find all sub-items of this hash
