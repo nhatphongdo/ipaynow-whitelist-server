@@ -702,13 +702,13 @@ module.exports = {
       )) || "";
     if (
       tx.toAddress !== escrowWallet.toLowerCase() ||
-      tx.unit !== strapi.models.transaction.USDT ||      
+      tx.unit !== strapi.models.transaction.USDT ||
       tx.processed === true
     ) {
       return;
     }
 
-    const amountValue = Math.max(0, tx.amount - tx.amount * feeRate)
+    const amountValue = Math.max(0, tx.amount - tx.amount * feeRate);
     if (amountValue === 0) {
       return;
     }
@@ -860,6 +860,47 @@ module.exports = {
           return;
         }
         await strapi.services.transaction.processBuyRewardTransaction(tx);
+      }
+    } catch (err) {
+      strapi.log.fatal(err);
+    }
+  },
+
+  processExchangeSellTransactions: async (startTime, ThresholdTime) => {
+    let currentTime = new Date().getTime();
+    if (startTime && ThresholdTime && currentTime - startTime > ThresholdTime) {
+      // Stop if over threshold
+      return;
+    }
+
+    try {
+      // Get all unprocessed transactions
+      const transactions = (
+        await strapi.models.transaction
+          .query((qb) => {
+            qb.where("status", strapi.models.transaction.SUCCESS)
+              .andWhere(function () {
+                this.where("processed", false).orWhereNull("processed");
+              })
+              .andWhere("type", strapi.models.transaction.EXCHANGE_SELL_ESCROW)
+              .orderBy("created_at")
+              .limit(1000); // Limit 1000 transactions every 15 minute
+          })
+          .fetchAll({ withRelated: ["sender"] })
+      ).toJSON();
+
+      for (let i = 0; i < transactions.length; i++) {
+        const tx = transactions[i];
+        currentTime = new Date().getTime();
+        if (
+          startTime &&
+          ThresholdTime &&
+          currentTime - startTime > ThresholdTime
+        ) {
+          // Stop if over threshold
+          return;
+        }
+        await strapi.services.transaction.processExchangeSellTransaction(tx);
       }
     } catch (err) {
       strapi.log.fatal(err);

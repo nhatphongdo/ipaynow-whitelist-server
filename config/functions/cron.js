@@ -49,6 +49,12 @@ module.exports = {
       ThresholdTime
     );
 
+    // Process Sell request
+    strapi.services.transaction.processExchangeSellTransactions(
+      startTime,
+      ThresholdTime
+    );
+
     // Process Deposit reward request
     // strapi.services.transaction.processDepositTransactions(
     //   startTime,
